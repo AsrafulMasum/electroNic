@@ -64,14 +64,14 @@ const SellingsDetails = () => {
       dataIndex: "key",
       key: "key",
       render: (_, __, index) => (
-        <span className="text-[#FDFDFD]">{index + 1}</span>
+        <span className="text-[#757575]">{index + 1}</span>
       ),
     },
     {
       title: "Order Id",
       dataIndex: "orderid",
       key: "orderid",
-      render: (text) => <span className="text-[#FDFDFD]">{text}</span>,
+      render: (text) => <span className="text-[#757575]">{text}</span>,
     },
     {
       title: "Product Images",
@@ -116,9 +116,8 @@ const SellingsDetails = () => {
             <p
               style={{
                 letterSpacing: 0.4,
-                fontSize: "#666666",
                 fontWeight: "400",
-                color: "#FDFDFD",
+                color: "#757575",
               }}
             >
               {user?.name}
@@ -131,14 +130,14 @@ const SellingsDetails = () => {
       title: "Contact No.",
       dataIndex: "phone",
       key: "phone",
-      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
+      render: (text) => <span style={{ color: "#757575" }}>{text}</span>,
     },
     {
       title: "Order Date",
       dataIndex: "createdAt",
       key: "createdAt",
       render: (_, record) => (
-        <span style={{ color: "#FDFDFD" }}>
+        <span style={{ color: "#757575" }}>
           {moment(record?.createdAt).format("YYYY-MM-DD")}
         </span>
       ),
@@ -222,7 +221,6 @@ const SellingsDetails = () => {
               cursor: "pointer",
               border: "none",
               outline: "none",
-              backgroundColor: "#121212",
               width: "40px",
               height: "32px",
             }}
@@ -235,7 +233,7 @@ const SellingsDetails = () => {
   ];
 
   return (
-    <div className="w-full h-full bg-[#13333A]">
+    <div className="w-full h-full bg-white">
       <div
         style={{
           borderRadius: "8px",
@@ -252,13 +250,13 @@ const SellingsDetails = () => {
         >
           <h3
             style={{
-              color: "#FDFDFD",
+              color: "#757575",
               fontSize: 18,
               fontWeight: "500",
               lineHeight: "24px",
             }}
           >
-            Sellings Details
+            Order Details
           </h3>
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
             <div
@@ -271,7 +269,7 @@ const SellingsDetails = () => {
               <ConfigProvider
                 theme={{
                   token: {
-                    colorPrimary: "#13333A",
+                    colorPrimary: "#09B782",
                   },
                 }}
               >
@@ -303,7 +301,7 @@ const SellingsDetails = () => {
                   colorTextDisabled: "#6C6C6C",
                 },
                 Table: {
-                  rowHoverBg: "#13333A",
+                  rowHoverBg: "#FFFFFF",
                 },
               },
               token: {

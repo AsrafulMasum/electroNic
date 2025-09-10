@@ -50,10 +50,10 @@ function App() {
             }
           >
             <Route path="/" element={<DashboardHome />} />
-            <Route path="/student-lists" element={<StudentLists />} />
-            <Route path="/user-lists" element={<UserLists />} />
+            <Route path="/seller-lists" element={<StudentLists />} />
+            <Route path="/customer-lists" element={<UserLists />} />
 
-            <Route path="/sellings-details" element={<SellingsDetails />} />
+            <Route path="/order-details" element={<SellingsDetails />} />
             <Route path="/enrollment-fees" element={<EnrollmentFees />} />
 
             <Route path="/wishlist" element={<Wishlist />} />

@@ -32,8 +32,8 @@
 }
 
 .ant-table-thead .ant-table-cell {
-  background-color: #2e7a8a !important;
-  color: #eaf2f3 !important;
+  background-color: #FFFFFF !important;
+  color: #757575 !important;
   border-radius: 0 !important;
 }
 
@@ -82,7 +82,7 @@ li {
 
 .ant-table-wrapper .ant-table-tbody > tr > td {
   border-bottom: none !important;
-  background-color: #13333a;
+  background-color: #FFFFFF;
 }
 
 .ant-table-wrapper .ant-table-thead > tr > th {

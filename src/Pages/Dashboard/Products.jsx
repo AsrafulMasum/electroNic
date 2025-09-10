@@ -69,14 +69,14 @@ const Products = () => {
       title: "Serial No.",
       key: "serial",
       render: (_, __, index) => (
-        <span className="text-[#FDFDFD]">{index + 1}</span>
+        <span className="text-[#757575]">{index + 1}</span>
       ),
     },
     {
       title: "Product Name",
       dataIndex: "title",
       key: "title",
-      render: (title) => <span className="text-[#FDFDFD]">{title}</span>,
+      render: (title) => <span className="text-[#757575]">{title}</span>,
     },
     {
       title: "Product Images",
@@ -104,7 +104,7 @@ const Products = () => {
       dataIndex: "productId",
       key: "productId",
       render: (_, record) => (
-        <span className="text-[#FDFDFD]">{record?._id}</span>
+        <span className="text-[#757575]">{record?._id}</span>
       ),
     },
     {
@@ -112,26 +112,25 @@ const Products = () => {
       dataIndex: "category",
       key: "category",
       render: (category) => (
-        <span style={{ color: "#FDFDFD" }}>{category?.title}</span>
+        <span style={{ color: "#757575" }}>{category?.title}</span>
       ),
     },
     {
       title: "Price",
       dataIndex: "price",
       key: "price",
-      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
+      render: (text) => <span style={{ color: "#757575" }}>{text}</span>,
     },
     {
       title: "Stock",
       dataIndex: "quantity",
       key: "quantity",
-      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
+      render: (text) => <span style={{ color: "#757575" }}>{text}</span>,
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      align: "center",
       render: (_, record) => {
         let status = "";
         let statusClass = "";
@@ -144,13 +143,13 @@ const Products = () => {
           statusClass = "bg-yellow-100 text-yellow-700";
         } else {
           status = "In Stock";
-          statusClass = "bg-[#2E7A8A] text-[#EBEBEB]";
+          statusClass = "bg-[#09B782] text-[#EBEBEB]";
         }
 
         return (
           <div className="pr-4">
             <p
-              className={`w-24 rounded-md text-sm py-[2px] capitalize ${statusClass}`}
+              className={`w-24 rounded-md text-sm text-center py-[2px] capitalize ${statusClass}`}
             >
               {status}
             </p>
@@ -182,7 +181,6 @@ const Products = () => {
               cursor: "pointer",
               border: "none",
               outline: "none",
-              backgroundColor: "#121212",
               width: "40px",
               height: "32px",
             }}
@@ -194,7 +192,7 @@ const Products = () => {
               setShowDelete(true);
               setDeleteId(record?._id);
             }}
-            className="bg-[#000000] w-10 h-8 flex justify-center items-center rounded-md"
+            className="w-10 h-8 flex justify-center items-center rounded-md"
           >
             <RiDeleteBin6Line size={20} className="text-secondary" />
           </button>
@@ -204,7 +202,7 @@ const Products = () => {
   ];
 
   return (
-    <div className="w-full h-full bg-[#13333A]">
+    <div className="w-full h-full bg-white">
       <div
         style={{
           borderRadius: "8px",
@@ -222,7 +220,7 @@ const Products = () => {
           <div>
             <h3
               style={{
-                color: "#FDFDFD",
+                color: "#757575",
                 fontSize: 18,
                 fontWeight: "500",
                 lineHeight: "24px",
@@ -243,7 +241,7 @@ const Products = () => {
                 <ConfigProvider
                   theme={{
                     token: {
-                      colorPrimary: "#13333A",
+                      colorPrimary: "#09B782",
                     },
                   }}
                 >
@@ -270,7 +268,7 @@ const Products = () => {
                 width: "177px",
                 height: "40px",
                 boxShadow: "0px 2px 4px 0px #0000001A",
-                backgroundColor: "#2E7A8A",
+                backgroundColor: "#09B782",
                 border: "none",
                 transition: "none",
                 color: "#fff",
@@ -297,11 +295,11 @@ const Products = () => {
                   colorTextDisabled: "#6C6C6C",
                 },
                 Table: {
-                  rowHoverBg: "#13333A",
+                  rowHoverBg: "#FFFFFF",
                 },
               },
               token: {
-                colorPrimary: "#13333A",
+                colorPrimary: "#09B782",
               },
             }}
           >
@@ -350,7 +348,7 @@ const Products = () => {
           </p>
           <button
             onClick={() => handleDelete(deleteId)}
-            className="bg-[#2E7A8A] py-2 px-5 text-white rounded-md"
+            className="bg-[#09B782] py-2 px-5 text-white rounded-md"
           >
             Confirm
           </button>

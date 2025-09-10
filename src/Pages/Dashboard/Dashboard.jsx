@@ -76,54 +76,64 @@ const Dashboard = () => {
       ),
     },
     {
-      title: "Student Lists",
-      path: "/student-lists",
+      title: "Seller Lists",
+      path: "/seller-lists",
       icon: (pathname) => (
-        <TbUsersGroup
+        <TbUsers
           className={`text-xl ${
-            pathname === "/student-lists" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
+            pathname === "/seller-lists" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
           }`}
         />
       ),
     },
     {
-      title: "User Lists",
-      path: "/user-lists",
+      title: "Customer Lists",
+      path: "/customer-lists",
       icon: (pathname) => (
-        <TbUsers
+        <TbUsersGroup
           className={`text-xl ${
-            pathname === "/user-lists" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
+            pathname === "/customer-lists" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
           }`}
         />
       ),
     },
 
     {
-      title: "Sellings Details",
-      path: "/sellings-details",
+      title: "Order Details",
+      path: "/order-details",
       icon: (pathname) => (
         <LiaHandHoldingUsdSolid
           className={`text-xl ${
-            pathname === "/sellings-details"
-              ? "text-[#EEEEEE]"
-              : "text-[#A3A3A3]"
+            pathname === "/order-details" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
           }`}
         />
       ),
     },
+
     {
-      title: "Enrollment Fees",
-      path: "/enrollment-fees",
+      title: "Seller Transactions",
+      path: "/seller-transactions",
       icon: (pathname) => (
-        <GiTakeMyMoney
+        <LiaHandHoldingUsdSolid
           className={`text-xl ${
-            pathname === "/enrollment-fees"
-              ? "text-[#EEEEEE]"
-              : "text-[#A3A3A3]"
+            pathname === "/seller-transactions" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
           }`}
         />
       ),
     },
+    // {
+    //   title: "Enrollment Fees",
+    //   path: "/enrollment-fees",
+    //   icon: (pathname) => (
+    //     <GiTakeMyMoney
+    //       className={`text-xl ${
+    //         pathname === "/enrollment-fees"
+    //           ? "text-[#EEEEEE]"
+    //           : "text-[#A3A3A3]"
+    //       }`}
+    //     />
+    //   ),
+    // },
 
     // {
     //   title: "Wishlist",
@@ -170,74 +180,74 @@ const Dashboard = () => {
         />
       ),
     },
-    {
-      title: "Coupon",
-      path: "/coupon",
-      icon: (pathname) => (
-        <TbDiscount
-          className={`text-xl ${
-            pathname === "/coupon" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
-          }`}
-        />
-      ),
-    },
+    // {
+    //   title: "Coupon",
+    //   path: "/coupon",
+    //   icon: (pathname) => (
+    //     <TbDiscount
+    //       className={`text-xl ${
+    //         pathname === "/coupon" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
+    //       }`}
+    //     />
+    //   ),
+    // },
 
-    {
-      title: "Courses",
-      path: "/courses",
-      icon: (pathname) => (
-        <TbPlayFootball
-          className={`text-xl ${
-            pathname === "/courses" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
-          }`}
-        />
-      ),
-    },
-    {
-      title: "Topics",
-      path: "/topics",
-      icon: (pathname) => (
-        <BsPersonVideo3
-          className={`text-xl ${
-            pathname === "/topics" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
-          }`}
-        />
-      ),
-    },
-    {
-      title: "Tutorials",
-      path: "/tutorials",
-      icon: (pathname) => (
-        <PiVideo
-          className={`text-xl ${
-            pathname === "/tutorials" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
-          }`}
-        />
-      ),
-    },
-    {
-      title: "Class Schedule",
-      path: "/classSchedule",
-      icon: (pathname) => (
-        <MdOutlineWatchLater
-          className={`text-xl ${
-            pathname === "/classSchedule" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
-          }`}
-        />
-      ),
-    },
+    // {
+    //   title: "Courses",
+    //   path: "/courses",
+    //   icon: (pathname) => (
+    //     <TbPlayFootball
+    //       className={`text-xl ${
+    //         pathname === "/courses" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
+    //       }`}
+    //     />
+    //   ),
+    // },
+    // {
+    //   title: "Topics",
+    //   path: "/topics",
+    //   icon: (pathname) => (
+    //     <BsPersonVideo3
+    //       className={`text-xl ${
+    //         pathname === "/topics" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
+    //       }`}
+    //     />
+    //   ),
+    // },
+    // {
+    //   title: "Tutorials",
+    //   path: "/tutorials",
+    //   icon: (pathname) => (
+    //     <PiVideo
+    //       className={`text-xl ${
+    //         pathname === "/tutorials" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
+    //       }`}
+    //     />
+    //   ),
+    // },
+    // {
+    //   title: "Class Schedule",
+    //   path: "/classSchedule",
+    //   icon: (pathname) => (
+    //     <MdOutlineWatchLater
+    //       className={`text-xl ${
+    //         pathname === "/classSchedule" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
+    //       }`}
+    //     />
+    //   ),
+    // },
 
-    {
-      title: "Coach",
-      path: "/coach",
-      icon: (pathname) => (
-        <RiUser2Line
-          className={`text-xl ${
-            pathname === "/coach" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
-          }`}
-        />
-      ),
-    },
+    // {
+    //   title: "Coach",
+    //   path: "/coach",
+    //   icon: (pathname) => (
+    //     <RiUser2Line
+    //       className={`text-xl ${
+    //         pathname === "/coach" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
+    //       }`}
+    //     />
+    //   ),
+    // },
     {
       title: "Manage Admin",
       path: "/manage-admin",
@@ -250,17 +260,17 @@ const Dashboard = () => {
       ),
     },
 
-    {
-      title: "Subscription",
-      path: "/subscription",
-      icon: (pathname) => (
-        <GiMoneyStack
-          className={`text-xl ${
-            pathname === "/subscription" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
-          }`}
-        />
-      ),
-    },
+    // {
+    //   title: "Subscription",
+    //   path: "/subscription",
+    //   icon: (pathname) => (
+    //     <GiMoneyStack
+    //       className={`text-xl ${
+    //         pathname === "/subscription" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
+    //       }`}
+    //     />
+    //   ),
+    // },
     {
       title: "Settings",
       path: "/settings",

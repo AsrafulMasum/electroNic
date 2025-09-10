@@ -40,7 +40,7 @@ const StudentLists = () => {
       title: "Student Id",
       dataIndex: "studentId",
       key: "studentId",
-      render: (text) => <span className="text-[#FDFDFD]">{text}</span>,
+      render: (text) => <span className="text-[#757575]">{text}</span>,
     },
     {
       title: "Student Name",
@@ -69,9 +69,8 @@ const StudentLists = () => {
             <p
               style={{
                 letterSpacing: 0.4,
-                fontSize: "#666666",
                 fontWeight: "400",
-                color: "#FDFDFD",
+                color: "#757575",
               }}
             >
               {record?.name}
@@ -84,48 +83,48 @@ const StudentLists = () => {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
+      render: (text) => <span style={{ color: "#757575" }}>{text}</span>,
     },
     {
       title: "Contact No.",
       dataIndex: "contact",
       key: "contact",
-      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
+      render: (text) => <span style={{ color: "#757575" }}>{text}</span>,
     },
-    {
-      title: "Enroll",
-      dataIndex: "enroll",
-      key: "enroll",
-      render: (_, record) => (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
+    // {
+    //   title: "Enroll",
+    //   dataIndex: "enroll",
+    //   key: "enroll",
+    //   render: (_, record) => (
+    //     <div
+    //       style={{
+    //         display: "flex",
+    //         alignItems: "center",
+    //         gap: "10px",
 
-            paddingRight: 10,
-          }}
-        >
-          <button
-            className="flex justify-center items-center rounded-md"
-            onClick={() => {
-              setStudent(record);
-              setShowEnrollModal(true);
-            }}
-            style={{
-              cursor: "pointer",
-              border: "none",
-              outline: "none",
-              backgroundColor: "#121212",
-              width: "40px",
-              height: "32px",
-            }}
-          >
-            <GoArrowUpRight size={26} className="text-secondary" />
-          </button>
-        </div>
-      ),
-    },
+    //         paddingRight: 10,
+    //       }}
+    //     >
+    //       <button
+    //         className="flex justify-center items-center rounded-md"
+    //         onClick={() => {
+    //           setStudent(record);
+    //           setShowEnrollModal(true);
+    //         }}
+    //         style={{
+    //           cursor: "pointer",
+    //           border: "none",
+    //           outline: "none",
+    //           backgroundColor: "#121212",
+    //           width: "40px",
+    //           height: "32px",
+    //         }}
+    //       >
+    //         <GoArrowUpRight size={26} className="text-secondary" />
+    //       </button>
+    //     </div>
+    //   ),
+    // },
     {
       title: "Action",
       dataIndex: "action",
@@ -147,7 +146,6 @@ const StudentLists = () => {
               cursor: "pointer",
               border: "none",
               outline: "none",
-              backgroundColor: "#121212",
               width: "40px",
               height: "32px",
             }}
@@ -163,7 +161,6 @@ const StudentLists = () => {
                 cursor: "pointer",
                 border: "none",
                 outline: "none",
-                backgroundColor: "#121212",
                 width: "40px",
                 height: "32px",
               }}
@@ -224,7 +221,7 @@ const StudentLists = () => {
   };
 
   return (
-    <div className="w-full h-full bg-[#13333A]">
+    <div className="w-full h-full bg-white">
       <div
         style={{
           borderRadius: "8px",
@@ -242,13 +239,13 @@ const StudentLists = () => {
           <div>
             <h3
               style={{
-                color: "#FDFDFD",
+                color: "#757575",
                 fontSize: 18,
                 fontWeight: "500",
                 lineHeight: "24px",
               }}
             >
-              Student Lists
+              Seller Lists
             </h3>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
@@ -262,7 +259,7 @@ const StudentLists = () => {
               <ConfigProvider
                 theme={{
                   token: {
-                    colorPrimary: "#13333A",
+                    colorPrimary: "#09B782",
                   },
                 }}
               >
@@ -294,11 +291,11 @@ const StudentLists = () => {
                   colorTextDisabled: "#6C6C6C",
                 },
                 Table: {
-                  rowHoverBg: "#13333A",
+                  rowHoverBg: "#FFFFFF",
                 },
               },
               token: {
-                colorPrimary: "#13333A",
+                colorPrimary: "#09B782",
               },
             }}
           >
@@ -324,7 +321,7 @@ const StudentLists = () => {
       <ConfigProvider
         theme={{
           token: {
-            colorPrimary: "#13333A",
+            colorPrimary: "#09B782",
           },
         }}
       >
@@ -354,7 +351,7 @@ const StudentLists = () => {
             />
             <button
               onClick={handleEnroll}
-              className="bg-[#2E7A8A] px-5 text-white rounded-md w-full h-[44px]"
+              className="bg-[#09B782] px-5 text-white rounded-md w-full h-[44px]"
             >
               Submit
             </button>
@@ -378,7 +375,7 @@ const StudentLists = () => {
           </p>
           <button
             onClick={handleDelete}
-            className="bg-[#2E7A8A] py-2 px-5 text-white rounded-md"
+            className="bg-[#09B782] py-2 px-5 text-white rounded-md"
           >
             Confirm
           </button>

@@ -46,7 +46,7 @@ const ManageAdmin = () => {
       dataIndex: "key",
       key: "key",
       render: (_, __, index) => (
-        <span className="text-[#FDFDFD]">{index + 1}</span>
+        <span className="text-[#757575]">{index + 1}</span>
       ),
     },
     {
@@ -68,7 +68,7 @@ const ManageAdmin = () => {
               className="h-12 w-12 object-cover rounded-full"
             />
           </div>
-          <span style={{ color: "#FDFDFD" }}>{record?.name}</span>
+          <span style={{ color: "#757575" }}>{record?.name}</span>
         </div>
       ),
     },
@@ -76,19 +76,19 @@ const ManageAdmin = () => {
       title: "Designation",
       dataIndex: "role",
       key: "role",
-      render: (text) => <span className="text-[#FDFDFD]">{text}</span>,
+      render: (text) => <span className="text-[#757575]">{text}</span>,
     },
     {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
+      render: (text) => <span style={{ color: "#757575" }}>{text}</span>,
     },
     {
       title: "Contact",
       dataIndex: "contact",
       key: "contact",
-      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
+      render: (text) => <span style={{ color: "#757575" }}>{text}</span>,
     },
     {
       title: "Action",
@@ -115,7 +115,6 @@ const ManageAdmin = () => {
                 cursor: "pointer",
                 border: "none",
                 outline: "none",
-                backgroundColor: "#121212",
                 width: "40px",
                 height: "32px",
               }}
@@ -162,7 +161,7 @@ const ManageAdmin = () => {
   };
 
   return (
-    <div className="w-full h-full bg-[#13333A]">
+    <div className="w-full h-full bg-white">
       <div
         style={{
           borderRadius: "8px",
@@ -179,7 +178,7 @@ const ManageAdmin = () => {
         >
           <h3
             style={{
-              color: "#FDFDFD",
+              color: "#757575",
               fontSize: 18,
               fontWeight: "500",
               lineHeight: "24px",
@@ -199,7 +198,7 @@ const ManageAdmin = () => {
               <ConfigProvider
                 theme={{
                   token: {
-                    colorPrimary: "#13333A",
+                    colorPrimary: "#09B782",
                   },
                 }}
               >
@@ -227,7 +226,7 @@ const ManageAdmin = () => {
                   width: "177px",
                   height: "40px",
                   boxShadow: "0px 2px 4px 0px #0000001A",
-                  backgroundColor: "#2E7A8A",
+                  backgroundColor: "#09B782",
                   border: "none",
                   transition: "none",
                   color: "#fff",
@@ -255,11 +254,11 @@ const ManageAdmin = () => {
                   colorTextDisabled: "#6C6C6C",
                 },
                 Table: {
-                  rowHoverBg: "#13333A",
+                  rowHoverBg: "#FFFFFF",
                 },
               },
               token: {
-                colorPrimary: "#13333A",
+                colorPrimary: "#09B782",
               },
             }}
           >
@@ -283,7 +282,7 @@ const ManageAdmin = () => {
       <ConfigProvider
         theme={{
           token: {
-            colorPrimary: "#13333A",
+            colorPrimary: "#09B782",
           },
         }}
       >
@@ -310,7 +309,7 @@ const ManageAdmin = () => {
           </p>
           <button
             onClick={handleLockAdmin}
-            className="bg-action py-2 px-5 text-white rounded-md"
+            className="bg-green py-2 px-5 text-white rounded-md"
           >
             Confirm
           </button>

@@ -41,7 +41,7 @@ const UserLists = () => {
       dataIndex: "key",
       key: "key",
       render: (_, __, index) => (
-        <span className="text-[#FDFDFD]">{index + 1}</span>
+        <span className="text-[#757575]">{index + 1}</span>
       ),
     },
     {
@@ -73,7 +73,7 @@ const UserLists = () => {
                 letterSpacing: 0.4,
                 fontSize: "#666666",
                 fontWeight: "400",
-                color: "#FDFDFD",
+                color: "#757575",
               }}
             >
               {record?.name}
@@ -86,24 +86,30 @@ const UserLists = () => {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      render: (text) => <span style={{ color: "#FDFDFD" }}>{text}</span>,
+      render: (text) => <span style={{ color: "#757575" }}>{text}</span>,
     },
     {
-      title: "Type",
-      dataIndex: "type",
-      key: "type",
-      render: (_, record) => (
-        <span style={{ color: "#FDFDFD" }}>
-          {record?.subscription ? "Subscribed User" : "Normal User"}
-        </span>
-      ),
+      title: "Contact No.",
+      dataIndex: "contact",
+      key: "contact",
+      render: (text) => <span style={{ color: "#757575" }}>{text}</span>,
     },
+    // {
+    //   title: "Type",
+    //   dataIndex: "type",
+    //   key: "type",
+    //   render: (_, record) => (
+    //     <span style={{ color: "#757575" }}>
+    //       {record?.subscription ? "Subscribed User" : "Normal User"}
+    //     </span>
+    //   ),
+    // },
     {
       title: "Start Date",
       dataIndex: "createdAt",
       key: "createdAt",
       render: (_, record) => (
-        <span style={{ color: "#FDFDFD" }}>
+        <span style={{ color: "#757575" }}>
           {moment(record?.createdAt).format("YYYY-MM-DD")}
         </span>
       ),
@@ -145,7 +151,6 @@ const UserLists = () => {
                 cursor: "pointer",
                 border: "none",
                 outline: "none",
-                backgroundColor: "#121212",
                 width: "40px",
                 height: "32px",
               }}
@@ -185,7 +190,7 @@ const UserLists = () => {
   };
 
   return (
-    <div className="w-full h-full bg-[#13333A]">
+    <div className="w-full h-full bg-white">
       <div
         style={{
           borderRadius: "8px",
@@ -202,13 +207,13 @@ const UserLists = () => {
         >
           <h3
             style={{
-              color: "#FDFDFD",
+              color: "#757575",
               fontSize: 18,
               fontWeight: "500",
               lineHeight: "24px",
             }}
           >
-            User Lists
+            Customer Lists
           </h3>
 
           <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
@@ -241,7 +246,7 @@ const UserLists = () => {
               </ConfigProvider>
             </div>
 
-            <div>
+            {/* <div>
               <ConfigProvider
                 theme={{
                   token: {
@@ -264,7 +269,7 @@ const UserLists = () => {
                   options={UserType}
                 />
               </ConfigProvider>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -279,7 +284,7 @@ const UserLists = () => {
                   colorTextDisabled: "#6C6C6C",
                 },
                 Table: {
-                  rowHoverBg: "#13333A",
+                  rowHoverBg: "#FFFFFF",
                 },
               },
               token: {

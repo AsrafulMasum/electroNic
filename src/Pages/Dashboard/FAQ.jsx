@@ -127,7 +127,7 @@ const FAQ = () => {
   };
 
   return (
-    <div className="bg-green h-full px-3 py-2 rounded-lg">
+    <div className="bg-white h-full px-3 py-2 rounded-lg">
       <div style={{ margin: "24px 16px" }}>
         <div
           style={{
@@ -154,7 +154,7 @@ const FAQ = () => {
                 width: "177px",
                 height: "40px",
                 boxShadow: "0px 2px 4px 0px #0000001A",
-                backgroundColor: "#2E7A8A",
+                backgroundColor: "#09B782",
                 border: "none",
                 transition: "none",
                 color: "#FDFDFD",
@@ -170,18 +170,18 @@ const FAQ = () => {
           </div>
         </div>
       </div>
-      <div className="bg-green pb-6 px-4 rounded-md">
+      <div className="bg-white pb-6 px-4 rounded-md">
         {faqData?.map((item, index) => (
           <div key={index} className="flex justify-between items-start gap-4 ">
             <div className="mt-3">
               <GoQuestion color="#FFC107" size={25} />
             </div>
             <div className="w-full ">
-              <p className="text-base font-medium border-b rounded-lg py-2 px-4 flex items-center gap-8 bg-action">
-                <span className=" flex-1 text-[#FDFDFD]"> {item?.title} ?</span>
+              <p className="text-base font-medium border-b rounded-lg py-2 px-4 flex items-center gap-8 bg-base">
+                <span className=" flex-1 text-[#757575]"> {item?.title} ?</span>
               </p>
-              <div className="flex justify-start items-start gap-2 border-b  py-2 px-4  rounded-lg my-4 bg-action shadow-none">
-                <p className="text-[#FDFDFD] leading-[24px] mb-6 ">
+              <div className="flex justify-start items-start gap-2 border-b  py-2 px-4  rounded-lg my-4 bg-base shadow-none">
+                <p className="text-[#757575] leading-[24px] mb-6 ">
                   {item?.description}
                 </p>
               </div>

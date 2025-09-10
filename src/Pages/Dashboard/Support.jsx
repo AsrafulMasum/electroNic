@@ -56,10 +56,10 @@ const Support = () => {
   };
 
   return (
-    <div className="px-4 bg-green h-full">
+    <div className="px-4 bg-white h-full">
       <h3
         style={{
-          color: "#FDFDFD",
+          color: "#757575",
           fontSize: 18,
           fontWeight: "500",
           paddingTop: "24px",
@@ -99,7 +99,7 @@ const Support = () => {
               style={{
                 height: 48,
                 width: 173,
-                backgroundColor: "#2E7A8A",
+                backgroundColor: "#09B782",
                 color: "white",
                 borderRadius: "8px",
                 fontWeight: 500,

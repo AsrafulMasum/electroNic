@@ -135,7 +135,7 @@ const StudentsBarChart = ({setStudentYear, studentStats}) => {
           <YAxis />
           <Tooltip />
           {/* <Bar barSize={10} radius={50} dataKey="saleTotal" fill="#EAF2F3" /> */}
-          <Bar barSize={10} radius={50} dataKey="count" name="Students" fill="#FFC107" />
+          <Bar barSize={10} radius={[50, 50, 0, 0]} dataKey="count" name="Students" fill="#FFC107" />
         </BarChart>
       </ResponsiveContainer>
     </div>

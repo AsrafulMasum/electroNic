@@ -79,7 +79,7 @@ const Category = () => {
       key: "serial",
       align: "left",
       width: "100px",
-      render: (text) => <span style={{ color: "#FDFDFD" }}>#{text}</span>,
+      render: (text) => <span style={{ color: "#757575" }}>#{text}</span>,
     },
     {
       title: "Category Name",
@@ -95,7 +95,7 @@ const Category = () => {
               className="w-full h-full object-cover rounded-md"
             />
           </div>
-          <span style={{ color: "#FDFDFD" }}>{record?.title}</span>
+          <span style={{ color: "#757575" }}>{record?.title}</span>
         </div>
       ),
     },
@@ -106,7 +106,7 @@ const Category = () => {
       render: (_, record) => (
         <>
           {record?.subcategories?.slice(0, 5).map((sCategory) => (
-            <span key={sCategory?.name} style={{ color: "#FDFDFD" }}>
+            <span key={sCategory?.name} style={{ color: "#757575" }}>
               {sCategory?.name},{" "}
             </span>
           ))}
@@ -148,7 +148,7 @@ const Category = () => {
               setOpenSubCategory(true);
               setEditData(record);
             }}
-            className="bg-[#000000] w-10 h-8 flex justify-center items-center rounded-md"
+            className="w-10 h-8 flex justify-center items-center rounded-md"
           >
             <IoMdAdd size={20} className="text-secondary" />
           </button>
@@ -158,7 +158,7 @@ const Category = () => {
               setOpenAddModel(true);
               setEditData(record);
             }}
-            className="bg-[#000000] w-10 h-8 flex justify-center items-center rounded-md"
+            className="w-10 h-8 flex justify-center items-center rounded-md"
           >
             <FiEdit size={20} className="text-secondary" />
           </button>
@@ -168,7 +168,7 @@ const Category = () => {
               setShowDelete(true);
               setDeleteId(record?._id);
             }}
-            className="bg-[#000000] w-10 h-8 flex justify-center items-center rounded-md"
+            className="w-10 h-8 flex justify-center items-center rounded-md"
           >
             <RiDeleteBin6Line size={20} className="text-secondary" />
           </button>
@@ -181,7 +181,7 @@ const Category = () => {
     <div className="h-full">
       <div
         style={{
-          background: "#13333A",
+          background: "#FFFFFF",
           borderRadius: "12px",
           height: "100%",
         }}
@@ -196,13 +196,13 @@ const Category = () => {
         >
           <h3
             style={{
-              color: "#FDFDFD",
+              color: "#757575",
               fontSize: 18,
               fontWeight: "500",
               lineHeight: "24px",
             }}
           >
-            Add Category
+            Categories
           </h3>
 
           <div className="flex items-center gap-3">
@@ -217,7 +217,7 @@ const Category = () => {
                 <ConfigProvider
                   theme={{
                     token: {
-                      colorPrimary: "#13333A",
+                      colorPrimary: "#09B782",
                     },
                   }}
                 >
@@ -242,7 +242,7 @@ const Category = () => {
                 width: "151px",
                 height: "40px",
                 boxShadow: "0px 2px 4px 0px #0000001A",
-                backgroundColor: "#2E7A8A",
+                backgroundColor: "#09B782",
                 border: "none",
                 transition: "none",
                 color: "#FDFDFD",
@@ -268,11 +268,11 @@ const Category = () => {
                   colorTextDisabled: "#6C6C6C",
                 },
                 Table: {
-                  rowHoverBg: "#13333A",
+                  rowHoverBg: "#FFFFFF",
                 },
               },
               token: {
-                colorPrimary: "#13333A",
+                colorPrimary: "#09B782",
               },
             }}
           >
