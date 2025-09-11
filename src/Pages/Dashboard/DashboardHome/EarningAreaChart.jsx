@@ -14,18 +14,18 @@ const CustomLegend = () => {
   return (
     <div className="flex gap-2 2xl:gap-4 text-sm text-[#757575]">
       <div className="flex items-center gap-1 whitespace-nowrap">
-        <div className="w-3 h-3 bg-[#FFC107] rounded-sm " />
-        Users
+        <div className="w-3 h-3 bg-action rounded-full" />
+        Sell
       </div>
       <div className="flex items-center gap-1 whitespace-nowrap">
-        <div className="w-3 h-3 bg-[#1976D2] rounded-sm " />
-        Subscribed Users
+        <div className="w-3 h-3 bg-green rounded-full" />
+        Profit
       </div>
     </div>
   );
 };
 
-const UsersAreaChart = ({setUserYear, userStats}) => {
+const EarningAreaChart = ({setUserYear, userStats}) => {
 
   return (
     <div
@@ -43,13 +43,13 @@ const UsersAreaChart = ({setUserYear, userStats}) => {
           marginBottom: "25px",
         }}
       >
-        <h3 className="text-xl font-medium text-[#757575]">User Statistics</h3>
+        <h3 className="text-xl font-medium text-[#757575]">Earning Statistics</h3>
         <div className="flex items-center gap-6">
           <CustomLegend />
           <ConfigProvider
             theme={{
               token: {
-                colorPrimary: "#2E7A8A",
+                colorPrimary: "#09b782",
               },
             }}
           >
@@ -73,8 +73,8 @@ const UsersAreaChart = ({setUserYear, userStats}) => {
               <stop offset="100%" stopColor="#FFC107" stopOpacity={0} />
             </linearGradient>
             <linearGradient id="colorSubscribed" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#1976D2" stopOpacity={1} />
-              <stop offset="100%" stopColor="#1976D2" stopOpacity={0} />
+              <stop offset="0%" stopColor="#09b782" stopOpacity={1} />
+              <stop offset="100%" stopColor="#09b782" stopOpacity={0} />
             </linearGradient>
           </defs>
           <CartesianGrid horizontal vertical={false} />
@@ -100,15 +100,15 @@ const UsersAreaChart = ({setUserYear, userStats}) => {
             dataKey="count"
             stroke="#FFC107"
             fill="url(#colorUv)"
-            name="Users"
+            name="Sell"
           />
           <Area
             connectNulls
             type="monotone"
             dataKey="subscriber"
-            stroke="#1976D2"
+            stroke="#09b782"
             fill="url(#colorSubscribed)"
-            name="Subscribed Users"
+            name="Profit"
           />
         </AreaChart>
       </ResponsiveContainer>
@@ -116,4 +116,4 @@ const UsersAreaChart = ({setUserYear, userStats}) => {
   );
 };
 
-export default UsersAreaChart;
+export default EarningAreaChart;

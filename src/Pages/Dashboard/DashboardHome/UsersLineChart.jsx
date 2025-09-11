@@ -33,31 +33,32 @@ const CustomLegend = () => {
   return (
     <div className="flex gap-2 2xl:gap-4 text-sm text-[#757575]">
       <div className="flex items-center gap-1 whitespace-nowrap">
-        <div className="w-3 h-3 bg-[#1E90FF] rounded-sm " />
-        Sale
+        <div className="w-3 h-3 bg-[#FFC107] rounded-full " />
+        Sellers
       </div>
       <div className="flex items-center gap-1 whitespace-nowrap">
-        <div className="w-3 h-3 bg-[#FFC107] rounded-sm " />
-        Enrollment
+        <div className="w-3 h-3 bg-[#09B782] rounded-full " />
+        Customers
+      </div>
+      <div className="flex items-center gap-1 whitespace-nowrap">
+        <div className="w-3 h-3 bg-[#1E90FF] rounded-full " />
+        Returning Customers
       </div>
     </div>
   );
 };
 
-const SellingLineChart = ({setSellerYear, sellingStats}) => {
-  
+const UsersLineChart = ({ setSellerYear, sellingStats }) => {
   return (
     <div className="bg-[#FFFFFF] py-6 rounded-xl w-full">
-      <div className="flex items-center justify-between px-10 mb-4">
-        <h1 className="text-xl font-medium text-[#757575]">
-          Selling Statistics
-        </h1>
+      <div className="flex items-center justify-between px-4 mb-4">
+        <h1 className="text-xl font-medium text-[#757575]">Users Statistics</h1>
         <div className="flex items-center gap-6">
           <CustomLegend />
           <ConfigProvider
             theme={{
               token: {
-                colorPrimary: "#2E7A8A",
+                colorPrimary: "#09B782",
               },
             }}
           >
@@ -85,14 +86,21 @@ const SellingLineChart = ({setSellerYear, sellingStats}) => {
           <Line
             type="monotone"
             dataKey="enrollment"
-            name="Enrollment Fees"
+            name="Sellers"
             stroke="#FFC107"
             activeDot={{ r: 8 }}
           />
           <Line
             type="monotone"
             dataKey="count"
-            name="Total Sold"
+            name="Customers"
+            stroke="#09B782"
+            activeDot={{ r: 8 }}
+          />
+          <Line
+            type="monotone"
+            dataKey="enrollment"
+            name="Returning Customers"
             stroke="#1E90FF"
             activeDot={{ r: 8 }}
           />
@@ -102,4 +110,4 @@ const SellingLineChart = ({setSellerYear, sellingStats}) => {
   );
 };
 
-export default SellingLineChart;
+export default UsersLineChart;

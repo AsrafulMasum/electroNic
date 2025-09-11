@@ -252,7 +252,7 @@ const CustomerLists = () => {
                 },
               },
               token: {
-                colorPrimary: "#13333A",
+                colorPrimary: "#09B782",
               },
             }}
           >
