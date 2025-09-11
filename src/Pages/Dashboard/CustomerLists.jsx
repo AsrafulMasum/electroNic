@@ -12,9 +12,8 @@ import { imageUrl } from "../../redux/api/baseApi";
 import toast from "react-hot-toast";
 import moment from "moment";
 
-const UserLists = () => {
+const CustomerLists = () => {
   const [page, setPage] = useState(1);
-  const [value, setValue] = useState(null);
   const [searchText, setSearchText] = useState("");
   const [lock, setLock] = useState("");
   const [userType, setUserType] = useState("User Type");
@@ -28,12 +27,6 @@ const UserLists = () => {
     subscriber: userType,
   });
   const [lockUser] = useLockUserMutation();
-
-  const UserType = [
-    { value: "User Type", label: "User Type" },
-    { value: "Normal User", label: "Normal User" },
-    { value: "Subscribed User", label: "Subscribed User" },
-  ];
 
   const columns = [
     {
@@ -185,10 +178,6 @@ const UserLists = () => {
     setSearchText(e.target.value);
   };
 
-  const handleUserType = (value) => {
-    setUserType(value);
-  };
-
   return (
     <div className="w-full h-full bg-white">
       <div
@@ -245,31 +234,6 @@ const UserLists = () => {
                 />
               </ConfigProvider>
             </div>
-
-            {/* <div>
-              <ConfigProvider
-                theme={{
-                  token: {
-                    colorPrimary: "#13333A",
-                  },
-                  components: {
-                    Select: {
-                      optionSelectedBg: "#2E7A8A",
-                    },
-                  },
-                }}
-              >
-                <Select
-                  value={userType}
-                  onChange={handleUserType}
-                  style={{
-                    width: 150,
-                    height: 40,
-                  }}
-                  options={UserType}
-                />
-              </ConfigProvider>
-            </div> */}
           </div>
         </div>
 
@@ -309,8 +273,6 @@ const UserLists = () => {
         </div>
       </div>
 
-      {/* <UserDetailsModal value={value} setValue={setValue} /> */}
-
       <Modal
         centered
         open={lock}
@@ -337,4 +299,4 @@ const UserLists = () => {
   );
 };
 
-export default UserLists;
+export default CustomerLists;

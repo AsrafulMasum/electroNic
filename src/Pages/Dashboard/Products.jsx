@@ -100,11 +100,11 @@ const Products = () => {
       },
     },
     {
-      title: "Product Id",
-      dataIndex: "productId",
-      key: "productId",
+      title: "Seller Name",
+      dataIndex: "sellerName",
+      key: "sellerName",
       render: (_, record) => (
-        <span className="text-[#757575]">{record?._id}</span>
+        <span className="text-[#757575]">{record?.title}</span>
       ),
     },
     {
@@ -260,7 +260,7 @@ const Products = () => {
                 </ConfigProvider>
               </div>
             </div>
-            <Button
+            {/* <Button
               onClick={() => {
                 setOpenAddModel(true);
               }}
@@ -280,7 +280,7 @@ const Products = () => {
             >
               <PlusOutlined />
               <span style={{ margin: 0 }}>Add Product</span>
-            </Button>
+            </Button> */}
           </div>
         </div>
 

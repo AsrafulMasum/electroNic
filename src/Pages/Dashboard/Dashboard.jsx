@@ -1,31 +1,22 @@
 import { Layout } from "antd";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
-import { GiMoneyStack, GiTakeMyMoney } from "react-icons/gi";
 import { SlSettings } from "react-icons/sl";
 import { LuLayoutDashboard, LuUserCog } from "react-icons/lu";
 import { IoIosNotifications, IoMdPaper } from "react-icons/io";
-import {
-  TbDiscount,
-  TbPlayFootball,
-  TbUsers,
-  TbUsersGroup,
-} from "react-icons/tb";
-import { BiSupport } from "react-icons/bi";
-import { LiaHandHoldingUsdSolid } from "react-icons/lia";
-import { CiLogout, CiSettings } from "react-icons/ci";
+import { TbUsers } from "react-icons/tb";
+import { LiaCertificateSolid, LiaHandHoldingUsdSolid } from "react-icons/lia";
+import { CiLogout } from "react-icons/ci";
 import {
   IoDocumentLockOutline,
   IoFootballOutline,
   IoImagesOutline,
-  IoSettingsOutline,
 } from "react-icons/io5";
-import { RiAdminLine, RiMoneyDollarCircleLine, RiUser2Line } from "react-icons/ri";
+import { RiAdminLine, RiMoneyDollarCircleLine } from "react-icons/ri";
 import { useEffect, useMemo, useState } from "react";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { GoQuestion } from "react-icons/go";
-import { BsExclamationCircle, BsPersonVideo3 } from "react-icons/bs";
-import { MdOutlineCategory, MdOutlineWatchLater } from "react-icons/md";
-import { PiVideo } from "react-icons/pi";
+import { BsExclamationCircle } from "react-icons/bs";
+import { MdOutlineCategory } from "react-icons/md";
 import logo from "../../assets/logo.svg";
 import { useProfileQuery } from "../../redux/features/authApi";
 import { imageUrl } from "../../redux/api/baseApi";
@@ -103,7 +94,6 @@ const Dashboard = () => {
         />
       ),
     },
-
     {
       title: "Order Details",
       path: "/order-details",
@@ -115,7 +105,6 @@ const Dashboard = () => {
         />
       ),
     },
-
     {
       title: "Seller Transactions",
       path: "/seller-transactions",
@@ -129,43 +118,6 @@ const Dashboard = () => {
         />
       ),
     },
-    // {
-    //   title: "Enrollment Fees",
-    //   path: "/enrollment-fees",
-    //   icon: (pathname) => (
-    //     <GiTakeMyMoney
-    //       className={`text-xl ${
-    //         pathname === "/enrollment-fees"
-    //           ? "text-[#EEEEEE]"
-    //           : "text-[#A3A3A3]"
-    //       }`}
-    //     />
-    //   ),
-    // },
-
-    // {
-    //   title: "Wishlist",
-    //   path: "/wishlist",
-    //   icon: (pathname) => (
-    //     <CiBookmark
-    //       className={`text-xl ${
-    //         pathname === "/wishlist" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
-    //       }`}
-    //     />
-    //   ),
-    // },
-    // {
-    //   title: "Interested User",
-    //   path: "/interestedUser",
-    //   icon: (pathname) => (
-    //     <TbUserHeart
-    //       className={`text-xl ${
-    //         pathname === "/interestedUser" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
-    //       }`}
-    //     />
-    //   ),
-    // },
-
     {
       title: "Products",
       path: "/products",
@@ -177,74 +129,6 @@ const Dashboard = () => {
         />
       ),
     },
-    // {
-    //   title: "Coupon",
-    //   path: "/coupon",
-    //   icon: (pathname) => (
-    //     <TbDiscount
-    //       className={`text-xl ${
-    //         pathname === "/coupon" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
-    //       }`}
-    //     />
-    //   ),
-    // },
-
-    // {
-    //   title: "Courses",
-    //   path: "/courses",
-    //   icon: (pathname) => (
-    //     <TbPlayFootball
-    //       className={`text-xl ${
-    //         pathname === "/courses" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
-    //       }`}
-    //     />
-    //   ),
-    // },
-    // {
-    //   title: "Topics",
-    //   path: "/topics",
-    //   icon: (pathname) => (
-    //     <BsPersonVideo3
-    //       className={`text-xl ${
-    //         pathname === "/topics" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
-    //       }`}
-    //     />
-    //   ),
-    // },
-    // {
-    //   title: "Tutorials",
-    //   path: "/tutorials",
-    //   icon: (pathname) => (
-    //     <PiVideo
-    //       className={`text-xl ${
-    //         pathname === "/tutorials" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
-    //       }`}
-    //     />
-    //   ),
-    // },
-    // {
-    //   title: "Class Schedule",
-    //   path: "/classSchedule",
-    //   icon: (pathname) => (
-    //     <MdOutlineWatchLater
-    //       className={`text-xl ${
-    //         pathname === "/classSchedule" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
-    //       }`}
-    //     />
-    //   ),
-    // },
-
-    // {
-    //   title: "Coach",
-    //   path: "/coach",
-    //   icon: (pathname) => (
-    //     <RiUser2Line
-    //       className={`text-xl ${
-    //         pathname === "/coach" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
-    //       }`}
-    //     />
-    //   ),
-    // },
     {
       title: "Manage Admin",
       path: "/manage-admin",
@@ -256,18 +140,6 @@ const Dashboard = () => {
         />
       ),
     },
-
-    // {
-    //   title: "Subscription",
-    //   path: "/subscription",
-    //   icon: (pathname) => (
-    //     <GiMoneyStack
-    //       className={`text-xl ${
-    //         pathname === "/subscription" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
-    //       }`}
-    //     />
-    //   ),
-    // },
     {
       title: "Settings",
       path: "/settings",
@@ -292,7 +164,6 @@ const Dashboard = () => {
             />
           ),
         },
-
         {
           title: "Add Category",
           path: "/settings/addCategory",
@@ -300,6 +171,19 @@ const Dashboard = () => {
             <MdOutlineCategory
               className={`text-2xl ${
                 pathname === "/settings/addCategory"
+                  ? "text-[#EEEEEE]"
+                  : "text-[#A3A3A3]"
+              }`}
+            />
+          ),
+        },
+        {
+          title: "Add Brand",
+          path: "/settings/brand-list",
+          icon: (pathname) => (
+            <LiaCertificateSolid
+              className={`text-2xl ${
+                pathname === "/settings/brand-list"
                   ? "text-[#EEEEEE]"
                   : "text-[#A3A3A3]"
               }`}
@@ -333,12 +217,12 @@ const Dashboard = () => {
           ),
         },
         {
-          title: "Privacy & Policy",
-          path: "/settings/privacy-policy",
+          title: "Work Functionalities",
+          path: "/settings/work-functionalities",
           icon: (pathname) => (
             <IoDocumentLockOutline
               className={`text-2xl ${
-                pathname === "/settings/privacy-policy"
+                pathname === "/settings/work-functionalities"
                   ? "text-[#EEEEEE]"
                   : "text-[#A3A3A3]"
               }`}
@@ -352,19 +236,6 @@ const Dashboard = () => {
             <IoMdPaper
               className={`text-2xl ${
                 pathname === "/settings/terms-conditions"
-                  ? "text-[#EEEEEE]"
-                  : "text-[#A3A3A3]"
-              }`}
-            />
-          ),
-        },
-        {
-          title: "Support",
-          path: "/settings/support",
-          icon: (pathname) => (
-            <BiSupport
-              className={`text-2xl ${
-                pathname === "/settings/support"
                   ? "text-[#EEEEEE]"
                   : "text-[#A3A3A3]"
               }`}

@@ -3,7 +3,7 @@ import JoditEditor from "jodit-react";
 import toast from "react-hot-toast";
 import { useGetRulesQuery, useUpdateRulesMutation } from "../../redux/features/rulesApi";
 
-const PrivacyPolicy = () => {
+const WorkFunctionalities = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
 
@@ -64,7 +64,7 @@ const PrivacyPolicy = () => {
           lineHeight: "24px",
         }}
       >
-        Privacy and Policy
+        Work Functionalities
       </h3>
 
       {isLoading ? (
@@ -114,4 +114,4 @@ const PrivacyPolicy = () => {
   );
 };
 
-export default PrivacyPolicy;
+export default WorkFunctionalities;

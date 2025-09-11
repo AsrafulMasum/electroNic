@@ -325,7 +325,7 @@ const AppSlider = () => {
               lineHeight: "24px",
             }}
           >
-            Products
+            App Slider
           </h3>
         </div>
         <div className="flex items-center gap-3">
@@ -378,7 +378,7 @@ const AppSlider = () => {
             }}
           >
             <PlusOutlined />
-            <span style={{ margin: 0 }}>Add Product</span>
+            <span style={{ margin: 0 }}>Add Slider</span>
           </Button>
         </div>
       </div>

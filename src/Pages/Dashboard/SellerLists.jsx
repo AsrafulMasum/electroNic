@@ -15,8 +15,9 @@ import {
   useEnrollStudentMutation,
   useGetCoursesQuery,
 } from "../../redux/features/courseApi";
+import moment from "moment";
 
-const StudentLists = () => {
+const SellerLists = () => {
   const [page, setPage] = useState(1);
   const [lock, setLock] = useState("");
   const [value, setValue] = useState(null);
@@ -91,40 +92,16 @@ const StudentLists = () => {
       key: "contact",
       render: (text) => <span style={{ color: "#757575" }}>{text}</span>,
     },
-    // {
-    //   title: "Enroll",
-    //   dataIndex: "enroll",
-    //   key: "enroll",
-    //   render: (_, record) => (
-    //     <div
-    //       style={{
-    //         display: "flex",
-    //         alignItems: "center",
-    //         gap: "10px",
-
-    //         paddingRight: 10,
-    //       }}
-    //     >
-    //       <button
-    //         className="flex justify-center items-center rounded-md"
-    //         onClick={() => {
-    //           setStudent(record);
-    //           setShowEnrollModal(true);
-    //         }}
-    //         style={{
-    //           cursor: "pointer",
-    //           border: "none",
-    //           outline: "none",
-    //           backgroundColor: "#121212",
-    //           width: "40px",
-    //           height: "32px",
-    //         }}
-    //       >
-    //         <GoArrowUpRight size={26} className="text-secondary" />
-    //       </button>
-    //     </div>
-    //   ),
-    // },
+    {
+      title: "Start Date",
+      dataIndex: "createdAt",
+      key: "createdAt",
+      render: (_, record) => (
+        <span style={{ color: "#757575" }}>
+          {moment(record?.createdAt).format("YYYY-MM-DD")}
+        </span>
+      ),
+    },
     {
       title: "Action",
       dataIndex: "action",
@@ -385,4 +362,4 @@ const StudentLists = () => {
   );
 };
 
-export default StudentLists;
+export default SellerLists;

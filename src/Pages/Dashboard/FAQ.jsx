@@ -139,7 +139,7 @@ const FAQ = () => {
         >
           <h3
             style={{
-              color: "#FDFDFD",
+              color: "#757575",
               fontSize: 18,
               fontWeight: "500",
               lineHeight: "24px",

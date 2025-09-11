@@ -580,7 +580,7 @@ const SellerTransactions = () => {
             <ConfigProvider
               theme={{
                 token: {
-                  colorPrimary: "#13333A",
+                  colorPrimary: "#09B782",
                 },
               }}
             >

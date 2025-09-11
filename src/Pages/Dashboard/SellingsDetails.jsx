@@ -200,36 +200,36 @@ const SellingsDetails = () => {
         );
       },
     },
-    {
-      title: "Invoice",
-      dataIndex: "invoice",
-      key: "invoice",
-      render: (_, record) => (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
+    // {
+    //   title: "Invoice",
+    //   dataIndex: "invoice",
+    //   key: "invoice",
+    //   render: (_, record) => (
+    //     <div
+    //       style={{
+    //         display: "flex",
+    //         alignItems: "center",
+    //         gap: "10px",
 
-            paddingRight: 10,
-          }}
-        >
-          <button
-            onClick={() => handleDownload(record)}
-            className="flex justify-center items-center rounded-md pb-1"
-            style={{
-              cursor: "pointer",
-              border: "none",
-              outline: "none",
-              width: "40px",
-              height: "32px",
-            }}
-          >
-            <IoDownloadOutline size={26} className="text-secondary" />
-          </button>
-        </div>
-      ),
-    },
+    //         paddingRight: 10,
+    //       }}
+    //     >
+    //       <button
+    //         onClick={() => handleDownload(record)}
+    //         className="flex justify-center items-center rounded-md pb-1"
+    //         style={{
+    //           cursor: "pointer",
+    //           border: "none",
+    //           outline: "none",
+    //           width: "40px",
+    //           height: "32px",
+    //         }}
+    //       >
+    //         <IoDownloadOutline size={26} className="text-secondary" />
+    //       </button>
+    //     </div>
+    //   ),
+    // },
   ];
 
   return (

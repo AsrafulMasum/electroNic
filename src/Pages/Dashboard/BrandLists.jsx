@@ -10,13 +10,116 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import AddCategoryModal from "../../Components/Dashboard/AddCategoryModal";
 import AddSubCategoryModal from "../../Components/Dashboard/AddSubcategoryModal";
 import SubCategoryView from "../../Components/Dashboard/SubCategoryView";
-import UserDetailsModal from "../../Components/Dashboard/UserDetailsModal";
 import { imageUrl } from "../../redux/api/baseApi";
 import {
   useDeleteCategoryMutation,
   useGetCategoriesQuery,
 } from "../../redux/features/categoriesApi";
 import { useSearchParams } from "react-router-dom";
+
+const brandData = [
+  {
+    key: "1",
+    brandName: "Apple",
+    image: "https://images.unsplash.com/photo-1580910051074-3d2c9cdb9759?w=200",
+  },
+  {
+    key: "2",
+    brandName: "Samsung",
+    image: "https://images.unsplash.com/photo-1606813909021-5b1dbaec3e4b?w=200",
+  },
+  {
+    key: "3",
+    brandName: "Sony",
+    image: "https://images.unsplash.com/photo-1606813908982-74a53ce38afc?w=200",
+  },
+  {
+    key: "4",
+    brandName: "Microsoft",
+    image: "https://images.unsplash.com/photo-1591892568994-9c604d6b2f13?w=200",
+  },
+  {
+    key: "5",
+    brandName: "Lenovo",
+    image: "https://images.unsplash.com/photo-1593642532973-d31b6557fa68?w=200",
+  },
+  {
+    key: "6",
+    brandName: "HP",
+    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=200",
+  },
+  {
+    key: "7",
+    brandName: "Dell",
+    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=200",
+  },
+  {
+    key: "8",
+    brandName: "Asus",
+    image: "https://images.unsplash.com/photo-1610465299996-87a8d2f22c97?w=200",
+  },
+  {
+    key: "9",
+    brandName: "Acer",
+    image: "https://images.unsplash.com/photo-1587202372775-9895df0e4b3e?w=200",
+  },
+  {
+    key: "10",
+    brandName: "Xiaomi",
+    image: "https://images.unsplash.com/photo-1556656793-08538906a9f8?w=200",
+  },
+  {
+    key: "11",
+    brandName: "Oppo",
+    image: "https://images.unsplash.com/photo-1592894646997-5e0d8f67a9a2?w=200",
+  },
+  {
+    key: "12",
+    brandName: "Vivo",
+    image: "https://images.unsplash.com/photo-1580894732444-8c7e3a5014a6?w=200",
+  },
+  {
+    key: "13",
+    brandName: "OnePlus",
+    image: "https://images.unsplash.com/photo-1573736300338-4f9c8c27334a?w=200",
+  },
+  {
+    key: "14",
+    brandName: "Google",
+    image: "https://images.unsplash.com/photo-1590487989356-dfe9172939f8?w=200",
+  },
+  {
+    key: "15",
+    brandName: "Realme",
+    image: "https://images.unsplash.com/photo-1624000020420-c1d6a9ef3b87?w=200",
+  },
+  {
+    key: "16",
+    brandName: "Huawei",
+    image: "https://images.unsplash.com/photo-1611074268330-1ee06b9d3170?w=200",
+  },
+  {
+    key: "17",
+    brandName: "Nokia",
+    image: "https://images.unsplash.com/photo-1592853625601-6f92d2189ff1?w=200",
+  },
+  {
+    key: "18",
+    brandName: "Motorola",
+    image: "https://images.unsplash.com/photo-1612817159949-99f0a9a0a46c?w=200",
+  },
+  {
+    key: "19",
+    brandName: "Canon",
+    image: "https://images.unsplash.com/photo-1504215680853-026ed2a45def?w=200",
+  },
+  {
+    key: "20",
+    brandName: "Nikon",
+    image: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=200",
+  },
+];
+
 
 const BrandLists = () => {
   const [page, setPage] = useState(1);
@@ -41,7 +144,7 @@ const BrandLists = () => {
     refetch,
   } = useGetCategoriesQuery({ searchTerm, page });
   const [deleteCategory] = useDeleteCategoryMutation();
-  
+
   // ------------------- Action -----------------------
 
   // Handle search input change
@@ -74,58 +177,32 @@ const BrandLists = () => {
   // ------------------------- Table Column  --------------------
   const columns = [
     {
-      title: "Sl. No",
-      dataIndex: "serial",
-      key: "serial",
-      align: "left",
-      width: "100px",
-      render: (text) => <span style={{ color: "#757575" }}>#{text}</span>,
-    },
-    {
-      title: "Category Name",
-      // dataIndex: "title",
-      key: "title",
-      align: "left",
-      render: (record) => (
-        <div className="flex items-center gap-3">
-          <div className="h-12 w-12">
-            <img
-              src={`${imageUrl}${record?.image}`}
-              alt=""
-              className="w-full h-full object-cover rounded-md"
-            />
-          </div>
-          <span style={{ color: "#757575" }}>{record?.title}</span>
-        </div>
+      title: "Serial No.",
+      dataIndex: "key",
+      key: "key",
+      render: (_, __, index) => (
+        <span className="text-[#757575]">{index + 1}</span>
       ),
     },
     {
-      title: "Sub-Category Name",
-      key: "Sub category",
-      align: "left",
+      title: "Brand Name",
+      dataIndex: "brandName",
+      key: "brandName",
+      render: (text) => <span style={{ color: "#757575" }}>{text}</span>,
+    },
+    {
+      title: "Brand Image",
+      dataIndex: "image",
+      key: "image",
       render: (_, record) => (
-        <>
-          {record?.subcategories?.slice(0, 5).map((sCategory) => (
-            <span key={sCategory?.name} style={{ color: "#757575" }}>
-              {sCategory?.name},{" "}
-            </span>
-          ))}
-
-          {record?.subcategories?.length > 0 && (
-            <span
-              onClick={() => {
-                setSelectedCategory(record);
-                setShowSubModal(true);
-              }}
-              className="ml-2 capitalize text-yellow-500 font-semibold cursor-pointer text-xs whitespace-nowrap"
-            >
-              see more...
-            </span>
-          )}
-          {record?.subcategories?.length < 1 && (
-            <span className="text-white text-center ml-16">-</span>
-          )}
-        </>
+        <div className="h-10 w-10">
+          <img
+            // src={`${imageUrl}${record?.image}`}
+            src={`${record?.image}`}
+            alt=""
+            className="w-full h-full object-cover rounded-md"
+          />
+        </div>
       ),
     },
     {
@@ -143,16 +220,6 @@ const BrandLists = () => {
             paddingRight: "46px",
           }}
         >
-          <button
-            onClick={() => {
-              setOpenSubCategory(true);
-              setEditData(record);
-            }}
-            className="w-10 h-8 flex justify-center items-center rounded-md"
-          >
-            <IoMdAdd size={20} className="text-secondary" />
-          </button>
-
           <button
             onClick={() => {
               setOpenAddModel(true);
@@ -202,7 +269,7 @@ const BrandLists = () => {
               lineHeight: "24px",
             }}
           >
-            Categories
+            Brands
           </h3>
 
           <div className="flex items-center gap-3">
@@ -253,10 +320,11 @@ const BrandLists = () => {
               }}
             >
               <PlusOutlined />
-              <span style={{ margin: 0 }}>Add Category</span>
+              <span style={{ margin: 0 }}>Add Brand</span>
             </Button>
           </div>
         </div>
+
         <div className="relative">
           <ConfigProvider
             theme={{
@@ -264,7 +332,7 @@ const BrandLists = () => {
                 Pagination: {
                   itemActiveBg: "#FFC107",
                   borderRadius: "100%",
-                  colorText: "white",
+                  colorText: "#757575",
                   colorTextDisabled: "#6C6C6C",
                 },
                 Table: {
@@ -280,19 +348,18 @@ const BrandLists = () => {
               size="small"
               columns={columns}
               rowKey="_id"
-              dataSource={categoryData?.data}
-              loading={isLoading}
+              dataSource={brandData}
+              // loading={isLoading}
               pagination={{
-                total: categoryData?.pagination?.total,
+                total: 20,
                 current: page,
-                pageSize: categoryData?.pagination?.limit,
+                pageSize: 10,
                 onChange: (page) => setPage(page),
               }}
             />
           </ConfigProvider>
         </div>
       </div>
-      {/* <UserDetailsModal open={open} setOpen={setOpen} /> */}
 
       <AddCategoryModal
         openAddModel={openAddModel}
