@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, ConfigProvider } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 import NotFoundImg from "./assets/not-found.png";
@@ -46,20 +46,28 @@ function NotFound() {
         >
           Visited page not found, please go to homepage.
         </p>
-        <Button
-          style={{
-            color: "#ffffff",
-            height: "44px",
-            width: "147px",
-            fontWeight: "500",
-            fontSize: "14px",
-            background: "#2E7A8A",
-            borderRadius: "8px",
-            marginTop: "60px",
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: "#09B782",
+            },
           }}
         >
-          <Link to="/">Go home page</Link>
-        </Button>
+          <Button
+            style={{
+              color: "#ffffff",
+              height: "44px",
+              width: "147px",
+              fontWeight: "500",
+              fontSize: "14px",
+              background: "#09B782",
+              borderRadius: "8px",
+              marginTop: "60px",
+            }}
+          >
+            <Link to="/">Go home page</Link>
+          </Button>
+        </ConfigProvider>
       </div>
     </div>
   );

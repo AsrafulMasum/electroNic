@@ -34,6 +34,8 @@ import ClassSchedule from "./Pages/Dashboard/ClassSchedule";
 import Coupon from "./Pages/Dashboard/Coupon";
 import Topics from "./Pages/Dashboard/Topics";
 import Support from "./Pages/Dashboard/Support";
+import AppSlider from "./Pages/Dashboard/AppSlider";
+import SellerTransactions from "./Pages/Dashboard/SellerTransactions";
 
 function App() {
   return (
@@ -55,12 +57,12 @@ function App() {
 
             <Route path="/order-details" element={<SellingsDetails />} />
             <Route path="/enrollment-fees" element={<EnrollmentFees />} />
+            <Route path="/seller-transactions" element={<SellerTransactions />} />
 
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/interestedUser" element={<InterestedUser />} />
 
             <Route path="/products" element={<Products />} />
-            <Route path="/addCategory" element={<Category />} />
             <Route path="/coupon" element={<Coupon />} />
 
             <Route path="/coach" element={<CoachLists />} />
@@ -81,6 +83,8 @@ function App() {
               element={<ChangePassword />}
             />
             <Route path="/settings/faq" element={<FAQ />} />
+            <Route path="/settings/app-slider" element={<AppSlider />} />
+            <Route path="/settings/addCategory" element={<Category />} />
             <Route
               path="/settings/privacy-policy"
               element={<PrivacyPolicy />}

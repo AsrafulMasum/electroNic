@@ -1,7 +1,8 @@
 import { Layout } from "antd";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { GiMoneyStack, GiTakeMyMoney } from "react-icons/gi";
-import { LuLayoutDashboard } from "react-icons/lu";
+import { SlSettings } from "react-icons/sl";
+import { LuLayoutDashboard, LuUserCog } from "react-icons/lu";
 import { IoIosNotifications, IoMdPaper } from "react-icons/io";
 import {
   TbDiscount,
@@ -12,8 +13,13 @@ import {
 import { BiSupport } from "react-icons/bi";
 import { LiaHandHoldingUsdSolid } from "react-icons/lia";
 import { CiLogout, CiSettings } from "react-icons/ci";
-import { IoDocumentLockOutline, IoFootballOutline } from "react-icons/io5";
-import { RiAdminLine, RiUser2Line } from "react-icons/ri";
+import {
+  IoDocumentLockOutline,
+  IoFootballOutline,
+  IoImagesOutline,
+  IoSettingsOutline,
+} from "react-icons/io5";
+import { RiAdminLine, RiMoneyDollarCircleLine, RiUser2Line } from "react-icons/ri";
 import { useEffect, useMemo, useState } from "react";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { GoQuestion } from "react-icons/go";
@@ -69,7 +75,7 @@ const Dashboard = () => {
       path: "/",
       icon: (pathname) => (
         <LuLayoutDashboard
-          className={`text-xl ${
+          className={`text-2xl ${
             pathname === "/" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
           }`}
         />
@@ -79,8 +85,8 @@ const Dashboard = () => {
       title: "Seller Lists",
       path: "/seller-lists",
       icon: (pathname) => (
-        <TbUsers
-          className={`text-xl ${
+        <LuUserCog
+          className={`text-2xl ${
             pathname === "/seller-lists" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
           }`}
         />
@@ -90,8 +96,8 @@ const Dashboard = () => {
       title: "Customer Lists",
       path: "/customer-lists",
       icon: (pathname) => (
-        <TbUsersGroup
-          className={`text-xl ${
+        <TbUsers
+          className={`text-2xl ${
             pathname === "/customer-lists" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
           }`}
         />
@@ -103,7 +109,7 @@ const Dashboard = () => {
       path: "/order-details",
       icon: (pathname) => (
         <LiaHandHoldingUsdSolid
-          className={`text-xl ${
+          className={`text-2xl ${
             pathname === "/order-details" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
           }`}
         />
@@ -114,9 +120,11 @@ const Dashboard = () => {
       title: "Seller Transactions",
       path: "/seller-transactions",
       icon: (pathname) => (
-        <LiaHandHoldingUsdSolid
-          className={`text-xl ${
-            pathname === "/seller-transactions" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
+        <RiMoneyDollarCircleLine
+          className={`text-2xl ${
+            pathname === "/seller-transactions"
+              ? "text-[#EEEEEE]"
+              : "text-[#A3A3A3]"
           }`}
         />
       ),
@@ -163,19 +171,8 @@ const Dashboard = () => {
       path: "/products",
       icon: (pathname) => (
         <IoFootballOutline
-          className={`text-xl ${
+          className={`text-2xl ${
             pathname === "/products" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
-          }`}
-        />
-      ),
-    },
-    {
-      title: "Add Category",
-      path: "/addCategory",
-      icon: (pathname) => (
-        <MdOutlineCategory
-          className={`text-xl ${
-            pathname === "/addCategory" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
           }`}
         />
       ),
@@ -253,7 +250,7 @@ const Dashboard = () => {
       path: "/manage-admin",
       icon: (pathname) => (
         <RiAdminLine
-          className={`text-xl ${
+          className={`text-2xl ${
             pathname === "/manage-admin" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
           }`}
         />
@@ -275,19 +272,46 @@ const Dashboard = () => {
       title: "Settings",
       path: "/settings",
       icon: (pathname) => (
-        <CiSettings
-          className={`text-xl ${
-            pathname === "/subscription" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
+        <SlSettings
+          className={`text-2xl ${
+            pathname === "/settings" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
           }`}
         />
       ),
       submenu: [
         {
+          title: "App Slider",
+          path: "/settings/app-slider",
+          icon: (pathname) => (
+            <IoImagesOutline
+              className={`text-2xl ${
+                pathname === "/settings/app-slider"
+                  ? "text-[#EEEEEE]"
+                  : "text-[#A3A3A3]"
+              }`}
+            />
+          ),
+        },
+
+        {
+          title: "Add Category",
+          path: "/settings/addCategory",
+          icon: (pathname) => (
+            <MdOutlineCategory
+              className={`text-2xl ${
+                pathname === "/settings/addCategory"
+                  ? "text-[#EEEEEE]"
+                  : "text-[#A3A3A3]"
+              }`}
+            />
+          ),
+        },
+        {
           title: "FAQ",
           path: "/settings/faq",
           icon: (pathname) => (
             <GoQuestion
-              className={`text-xl ${
+              className={`text-2xl ${
                 pathname === "/settings/faq"
                   ? "text-[#EEEEEE]"
                   : "text-[#A3A3A3]"
@@ -300,7 +324,7 @@ const Dashboard = () => {
           path: "/settings/about-us",
           icon: (pathname) => (
             <BsExclamationCircle
-              className={`text-xl ${
+              className={`text-2xl ${
                 pathname === "/settings/about-us"
                   ? "text-[#EEEEEE]"
                   : "text-[#A3A3A3]"
@@ -313,7 +337,7 @@ const Dashboard = () => {
           path: "/settings/privacy-policy",
           icon: (pathname) => (
             <IoDocumentLockOutline
-              className={`text-xl ${
+              className={`text-2xl ${
                 pathname === "/settings/privacy-policy"
                   ? "text-[#EEEEEE]"
                   : "text-[#A3A3A3]"
@@ -326,7 +350,7 @@ const Dashboard = () => {
           path: "/settings/terms-conditions",
           icon: (pathname) => (
             <IoMdPaper
-              className={`text-xl ${
+              className={`text-2xl ${
                 pathname === "/settings/terms-conditions"
                   ? "text-[#EEEEEE]"
                   : "text-[#A3A3A3]"
@@ -339,7 +363,7 @@ const Dashboard = () => {
           path: "/settings/support",
           icon: (pathname) => (
             <BiSupport
-              className={`text-xl ${
+              className={`text-2xl ${
                 pathname === "/settings/support"
                   ? "text-[#EEEEEE]"
                   : "text-[#A3A3A3]"
@@ -354,7 +378,7 @@ const Dashboard = () => {
   return (
     <Layout style={{ height: "100vh", width: "100vw" }}>
       <Sider
-        width="250"
+        width="300"
         style={{
           overflow: "auto",
           position: "fixed",
@@ -402,7 +426,7 @@ const Dashboard = () => {
                     }}
                   >
                     <div style={{ height: "24px" }}>{item.icon(pathname)}</div>
-                    <div style={{ fontSize: "14px" }}>{item.title}</div>
+                    <div style={{ fontSize: "16px" }}>{item.title}</div>
                   </div>
                   <div style={{ marginRight: "20px" }}>
                     {openSubMenu ? (
@@ -429,7 +453,7 @@ const Dashboard = () => {
                   }}
                 >
                   <div style={{ height: "24px" }}>{item.icon(pathname)}</div>
-                  <div style={{ fontSize: "14px" }}>{item.title}</div>
+                  <div style={{ fontSize: "16px" }}>{item.title}</div>
                 </Link>
               )}
 
@@ -516,8 +540,8 @@ const Dashboard = () => {
             onClick={handleLogout}
             className="flex items-center gap-2 pl-8 py-3 w-full rounded-xl text-red-500 pb-10"
           >
-            <CiLogout className="text-xl" />
-            <span className="text-sm">Log Out</span>
+            <CiLogout className="text-2xl" />
+            <span>Log Out</span>
           </button>
         </ul>
       </Sider>
@@ -629,7 +653,7 @@ const Dashboard = () => {
           style={{
             marginTop: "88px",
             marginBottom: "16px",
-            marginLeft: "265px",
+            marginLeft: "316px",
             marginRight: "16px",
             borderRadius: "8px",
             overflow: "auto",
