@@ -1,20 +1,75 @@
-import { ConfigProvider, Select } from "antd";
+import { ConfigProvider, Select, Table } from "antd";
 import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
-import { FiExternalLink } from "react-icons/fi";
-import { FiInfo } from "react-icons/fi";
 
 export default function TopSellingProducts() {
   const [selectedMonth, setSelectedMonth] = useState("September");
+
   const data = [
-    { id: 1, name: "Theresa Webb", userId: "2341651561" },
-    { id: 2, name: "Theresa Webb", userId: "5614564154" },
-    { id: 3, name: "Theresa Webb", userId: "5724525544" },
-    { id: 4, name: "Theresa Webb", userId: "1256988452" },
-    { id: 5, name: "Theresa Webb", userId: "1236598632" },
-    { id: 6, name: "Theresa Webb", userId: "5724525544" },
-    { id: 7, name: "Theresa Webb", userId: "5724525544" },
-    { id: 8, name: "Theresa Webb", userId: "5724525544" },
+    {
+      id: 1,
+      name: "Theresa Webb",
+      userId: "2341651561",
+      brand: "Brand A",
+      category: "Electronics",
+      amount: "$200",
+    },
+    {
+      id: 2,
+      name: "Theresa Webb",
+      userId: "5614564154",
+      brand: "Brand B",
+      category: "Clothing",
+      amount: "$120",
+    },
+    {
+      id: 3,
+      name: "Theresa Webb",
+      userId: "5724525544",
+      brand: "Brand C",
+      category: "Toys",
+      amount: "$80",
+    },
+    {
+      id: 4,
+      name: "Theresa Webb",
+      userId: "1256988452",
+      brand: "Brand D",
+      category: "Furniture",
+      amount: "$300",
+    },
+    {
+      id: 5,
+      name: "Theresa Webb",
+      userId: "1236598632",
+      brand: "Brand E",
+      category: "Groceries",
+      amount: "$50",
+    },
+    {
+      id: 6,
+      name: "Theresa Webb",
+      userId: "5724525544",
+      brand: "Brand F",
+      category: "Electronics",
+      amount: "$220",
+    },
+    {
+      id: 7,
+      name: "Theresa Webb",
+      userId: "5724525544",
+      brand: "Brand G",
+      category: "Clothing",
+      amount: "$180",
+    },
+    {
+      id: 8,
+      name: "Theresa Webb",
+      userId: "5724525544",
+      brand: "Brand H",
+      category: "Toys",
+      amount: "$90",
+    },
   ];
 
   const months = [
@@ -37,12 +92,51 @@ export default function TopSellingProducts() {
     setSelectedMonth(month);
   };
 
+  // Table Columns
+  const columns = [
+    {
+      title: "Product Name",
+      dataIndex: "name",
+      key: "name",
+      render: (text, record) => (
+        <div className="flex items-center gap-2">
+          {record.name && (
+            <div className="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-xs">
+              {record.name.charAt(0)}
+            </div>
+          )}
+          {text}
+        </div>
+      ),
+    },
+    {
+      title: "Brand",
+      dataIndex: "brand",
+      key: "brand",
+    },
+    {
+      title: "Category",
+      dataIndex: "category",
+      key: "category",
+    },
+    {
+      title: "Total Sold",
+      dataIndex: "userId",
+      key: "userId",
+    },
+    {
+      title: "Amount",
+      dataIndex: "amount",
+      key: "amount",
+    },
+  ];
+
   return (
-    <div className="bg-white rounded-2xl shadow p-4">
+    <div className="bg-white rounded-xl shadow p-4">
       {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-xl font-medium text-[#757575]">
-          Top Selling products
+          Top Selling Products
         </h1>
         <ConfigProvider
           theme={{
@@ -85,35 +179,12 @@ export default function TopSellingProducts() {
 
       {/* Table */}
       <div className="overflow-y-auto h-60 pr-10">
-        <table className="w-full border-separate border-spacing-y-2">
-          <thead>
-            <tr className="flex justify-between text-sm text-green">
-              <th className="p-2 font-medium">Product Name</th>
-              <th className="p-2 font-medium">Total Orders</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((item) => (
-              <tr
-                key={item.id}
-                className="bg-white border-b text-sm text-gray-700 flex justify-between"
-              >
-                {/* Product Name */}
-                <td className="p-2 flex items-center gap-2">
-                  {item.name && (
-                    <div className="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-xs">
-                      {item.name.charAt(0)}
-                    </div>
-                  )}
-                  {item.name}
-                </td>
-
-                {/* User ID */}
-                <td className="p-2">{item.userId}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <Table
+          columns={columns}
+          dataSource={data}
+          rowKey="id"
+          pagination={false}
+        />
       </div>
     </div>
   );

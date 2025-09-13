@@ -285,7 +285,7 @@ const Dashboard = () => {
                     alignItems: "center",
                     color: "#A3A3A3",
                     gap: "8px",
-                    padding: "12px 8px 12px 35px",
+                    padding: "10px 8px 10px 35px",
                     justifyContent: "space-between",
                   }}
                 >
@@ -318,7 +318,7 @@ const Dashboard = () => {
                     alignItems: "center",
                     gap: "8px",
                     background: item.path === pathname ? "#09B782" : "none",
-                    margin: "8px 10px 8px 10px",
+                    margin: "6px 10px 6px 10px",
                     padding: "8px 8px 8px 24px",
                     borderRadius: "20px",
                   }}

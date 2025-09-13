@@ -36,23 +36,23 @@ const CustomLegend = () => {
         <div className="w-3 h-3 bg-[#FFC107] rounded-full " />
         Sellers
       </div>
-      <div className="flex items-center gap-1 whitespace-nowrap">
+      {/* <div className="flex items-center gap-1 whitespace-nowrap">
         <div className="w-3 h-3 bg-[#09B782] rounded-full " />
         Customers
       </div>
       <div className="flex items-center gap-1 whitespace-nowrap">
         <div className="w-3 h-3 bg-[#1E90FF] rounded-full " />
         Returning Customers
-      </div>
+      </div> */}
     </div>
   );
 };
 
-const UsersLineChart = ({ setSellerYear, sellingStats }) => {
+const SellersLineChart = ({ setSellerYear, sellingStats }) => {
   return (
     <div className="bg-[#FFFFFF] py-6 rounded-xl w-full">
       <div className="flex items-center justify-between px-4 mb-4">
-        <h1 className="text-xl font-medium text-[#757575]">Users Statistics</h1>
+        <h1 className="text-xl font-medium text-[#757575]">Sellers Statistics</h1>
         <div className="flex items-center gap-6">
           <CustomLegend />
           <ConfigProvider
@@ -90,7 +90,7 @@ const UsersLineChart = ({ setSellerYear, sellingStats }) => {
             stroke="#FFC107"
             activeDot={{ r: 8 }}
           />
-          <Line
+          {/* <Line
             type="monotone"
             dataKey="count"
             name="Customers"
@@ -103,11 +103,11 @@ const UsersLineChart = ({ setSellerYear, sellingStats }) => {
             name="Returning Customers"
             stroke="#1E90FF"
             activeDot={{ r: 8 }}
-          />
+          /> */}
         </LineChart>
       </ResponsiveContainer>
     </div>
   );
 };
 
-export default UsersLineChart;
+export default SellersLineChart;

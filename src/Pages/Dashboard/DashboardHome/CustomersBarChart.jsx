@@ -13,37 +13,27 @@ import {
 } from "recharts";
 import { FaChevronDown } from "react-icons/fa";
 
-const OrdersBarChart = ({ setStudentYear, studentStats }) => {
+const CustomersBarChart = ({ setStudentYear, studentStats }) => {
   const CustomLegend = () => {
     return (
-      <div className="flex gap-2 text-sm text-[#757575]">
+      <div className="flex gap-2 2xl:gap-4 text-sm text-[#757575]">
         <div className="flex items-center gap-1 whitespace-nowrap">
           <div className="w-3 h-3 bg-[#09B782] rounded-full" />
-          Sold
+          Customers
         </div>
         <div className="flex items-center gap-1 whitespace-nowrap">
           <div className="w-3 h-3 bg-[#FFC107] rounded-full" />
-          Pending
-        </div>
-        <div className="flex items-center gap-1 whitespace-nowrap">
-          <div className="w-3 h-3 bg-[#D32B20] rounded-full" />
-          Cancel
-        </div>
-        <div className="flex items-center gap-1 whitespace-nowrap">
-          <div className="w-3 h-3 bg-[#FF0000] rounded-full" />
-          Return
+          Returning Customers
         </div>
       </div>
     );
   };
 
   return (
-    <div className=" py-6 rounded-xl w-full  bg-[#FFFFFF]">
+    <div className="py-6 rounded-xl w-full bg-[#FFFFFF]">
       <div className="flex items-center justify-between px-4 mb-4">
-        <h1 className="text-xl font-medium text-[#757575]">
-          Order Statistics
-        </h1>
-        <div className="flex items-center gap-2 2xl:gap-4">
+        <h1 className="text-xl font-medium text-[#757575]">Customers Statistics</h1>
+        <div className="flex items-center gap-2 2xl:gap-6">
           <CustomLegend />
           <ConfigProvider
             theme={{
@@ -63,7 +53,7 @@ const OrdersBarChart = ({ setStudentYear, studentStats }) => {
           </ConfigProvider>
         </div>
       </div>
-      <ResponsiveContainer width="100%" height={250}>
+      <ResponsiveContainer width="100%" height={300}>
         <BarChart
           data={studentStats}
           margin={{
@@ -77,35 +67,19 @@ const OrdersBarChart = ({ setStudentYear, studentStats }) => {
           <XAxis dataKey="month" />
           <YAxis />
           <Tooltip />
-          {/* <Bar barSize={10} radius={50} dataKey="saleTotal" fill="#EAF2F3" /> */}
-          {/* <Bar barSize={40} radius={[50, 50, 0, 0]} dataKey="count" name="Students" fill="#FFC107" /> */}
           <Bar
-            barSize={40}
+            barSize={15}
+            radius={[50, 50, 0, 0]}
             dataKey="count"
-            stackId="a"
-            name="Sold"
+            name="Customers"
             fill="#09B782"
           />
           <Bar
-            barSize={40}
+            barSize={15}
+            radius={[50, 50, 0, 0]}
             dataKey="count"
-            stackId="a"
-            name="Pending"
+            name="Returning Customers"
             fill="#FFC107"
-          />
-          <Bar
-            barSize={40}
-            dataKey="count"
-            stackId="a"
-            name="Cancel"
-            fill="#D32B20"
-          />
-          <Bar
-            barSize={40}
-            dataKey="count"
-            stackId="a"
-            name="Return"
-            fill="#FF0000"
           />
         </BarChart>
       </ResponsiveContainer>
@@ -113,4 +87,4 @@ const OrdersBarChart = ({ setStudentYear, studentStats }) => {
   );
 };
 
-export default OrdersBarChart;
+export default CustomersBarChart;

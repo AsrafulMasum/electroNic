@@ -6,9 +6,11 @@ import { HiOutlineArchiveBoxArrowDown } from "react-icons/hi2";
 import { LuBox } from "react-icons/lu";
 import EarningAreaChart from "./EarningAreaChart";
 import OrdersBarChart from "./OrdersBarChart";
-import UsersLineChart from "./UsersLineChart";
 import TopSellingProducts from "./TopSellingProducts";
 import TopSellers from "./TopSellers";
+import SellersLineChart from "./SellersLineChart";
+import CustomersBarChart from "./CustomersBarChart";
+import CustomerRatingsChart from "./CustomerRatingsChart";
 
 function DashboardHome() {
   const [userYear, setUserYear] = useState("");
@@ -33,8 +35,8 @@ function DashboardHome() {
       title: "Total Products",
       amount: [
         {
-          products: `$${overView?.totalSold?.toLocaleString()}`,
-          quantity: `$${overView?.totalSold?.toLocaleString()}`,
+          products: overView?.totalSold?.toLocaleString(),
+          quantity: overView?.totalSold?.toLocaleString(),
         },
       ],
       icon: (
@@ -78,10 +80,13 @@ function DashboardHome() {
                 <div className="bg-green p-3 rounded-full">{icon}</div>
                 <h2 className="text-lg text-[#757575] font-medium">{title}</h2>
               </div>
-              <div className="flex justify-between items-center gap-2">
-                <p className="text-[#757575]">
+              <div className="flex justify-between items-center gap-2 w-full">
+                <div className="text-[#757575] w-full">
                   {amount?.map((item, index) => (
-                    <div key={index} className="flex gap-4">
+                    <div
+                      key={index}
+                      className="w-full flex justify-between gap-4"
+                    >
                       {Object.keys(item).map((key) => (
                         <div key={key} className="flex items-center gap-2">
                           <span className="font-medium text-[#757575] capitalize">
@@ -92,7 +97,7 @@ function DashboardHome() {
                       ))}
                     </div>
                   ))}
-                </p>
+                </div>
               </div>
             </div>
           </div>
@@ -105,22 +110,27 @@ function DashboardHome() {
           userStats={data?.data?.userListByMonthsData}
         />
       </div>
-      <div className="grid grid-cols-3 gap-x-2 mt-2">
+      <div className="grid grid-cols-2 gap-x-2 mt-2">
+        <OrdersBarChart
+          setStudentYear={setStudentYear}
+          studentStats={data?.data?.studentListByMonthsData}
+        />
         <TopSellingProducts />
+      </div>
+      <div className="grid grid-cols-3 gap-x-2 mt-2">
         <div className="col-span-2">
-          <OrdersBarChart
+          <CustomersBarChart
             setStudentYear={setStudentYear}
             studentStats={data?.data?.studentListByMonthsData}
           />
         </div>
+        <CustomerRatingsChart />
       </div>
-      <div className="grid grid-cols-3 gap-x-2 mt-2">
-        <div className="col-span-2">
-          <UsersLineChart
-            setSellerYear={setSellerYear}
-            sellingStats={data?.data?.orderListByMonthsData}
-          />
-        </div>
+      <div className="grid grid-cols-2 gap-x-2 mt-2">
+        <SellersLineChart
+          setSellerYear={setSellerYear}
+          sellingStats={data?.data?.orderListByMonthsData}
+        />
         <TopSellers />
       </div>
       {/* <div className="grid grid-cols-2 gap-x-2 mt-2">
