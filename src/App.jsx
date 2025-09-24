@@ -34,11 +34,12 @@ function App() {
           <Route
             exact
             path="/"
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
+            // element={
+            //   <PrivateRoute>
+            //     <Dashboard />
+            //   </PrivateRoute>
+            // }
+            element={<Dashboard />}
           >
             <Route path="/" element={<DashboardHome />} />
             <Route path="/seller-lists" element={<SellerLists />} />
