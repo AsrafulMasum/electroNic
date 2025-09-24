@@ -161,7 +161,7 @@ const CustomerRatingsChart = () => {
           <XAxis type="number" />
           <YAxis dataKey="name" type="category" scale="band" />
           <Tooltip />
-          <Bar dataKey="pv" name="Ratings" barSize={15} fill="#09B782" />
+          <Bar dataKey="pv" name="Ratings" barSize={15} fill="#FFC603" />
         </ComposedChart>
       </ResponsiveContainer>
     </div>
