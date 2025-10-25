@@ -1,6 +1,7 @@
 import { Button, Form, Input } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useForgotPasswordMutation } from "../../redux/features/authApi";
+import toast from "react-hot-toast";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ const ForgotPassword = () => {
         email: values?.email,
       }).unwrap();
       if(res?.success) {
+        toast.success(res?.message);
         navigate(`/otp?email=${values?.email}`);
       } else {
         console.error("Failed to send OTP");

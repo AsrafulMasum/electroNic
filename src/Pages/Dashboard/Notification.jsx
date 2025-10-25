@@ -30,15 +30,15 @@ const Notifications = () => {
     }
   };
 
-  const socket = useMemo(() => io(imageUrl), []);
+  // const socket = useMemo(() => io(imageUrl), []);
 
-  useEffect(() => {
-    socket.on(`notification::${user?._id}`, (data) => {
-      console.log(data);
+  // useEffect(() => {
+  //   socket.on(`notification::${user?._id}`, (data) => {
+  //     console.log(data);
 
-      refetch();
-    });
-  }, [socket, user?._id]);
+  //     refetch();
+  //   });
+  // }, [socket, user?._id]);
 
   return (
     <div className="h-full bg-white p-6">

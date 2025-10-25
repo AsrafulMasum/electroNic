@@ -6,7 +6,7 @@ const authApi = baseApi.injectEndpoints({
       query: () => {
         return {
           method: "GET",
-          url: "/user/profile",
+          url: "/users/profile",
         };
       },
     }),
@@ -15,7 +15,7 @@ const authApi = baseApi.injectEndpoints({
       query: (data) => {
         return {
           method: "POST",
-          url: "/auth/verify-email",
+          url: "/auth/verify-otp",
           body: data,
         };
       },
@@ -48,7 +48,7 @@ const authApi = baseApi.injectEndpoints({
           url: "/auth/reset-password",
           body: payload,
           headers: {
-            authorization: `${token}`,
+            token: `${token}`,
           },
         };
       },
@@ -68,7 +68,7 @@ const authApi = baseApi.injectEndpoints({
       query: (data) => {
         return {
           method: "PATCH",
-          url: "/user/profile",
+          url: "/users/profile",
           body: data,
         };
       },
@@ -78,12 +78,9 @@ const authApi = baseApi.injectEndpoints({
       query: (data) => {
         return {
           method: "POST",
-          url: "/auth/forget-password",
+          url: "/auth/resend-otp",
           body: data,
         };
-      },
-      transformResponse: (data) => {
-        return data;
       },
     }),
   }),

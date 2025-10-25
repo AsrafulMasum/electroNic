@@ -1,5 +1,4 @@
 import { Button, Checkbox, Form, Input } from "antd";
-import React from "react";
 import { useNavigate } from "react-router";
 import logo from "../../assets/logo.svg";
 import { useLoginMutation } from "../../redux/features/authApi";
@@ -8,6 +7,8 @@ import toast from "react-hot-toast";
 const Login = () => {
   const [login] = useLoginMutation();
 
+  const savedUser = JSON.parse(localStorage.getItem("user"));
+
   const onFinish = async (values) => {
     try {
       const res = await login({
@@ -15,9 +16,20 @@ const Login = () => {
         password: values.password,
       }).unwrap();
 
-      if(res?.success) {
+      if (res?.success) {
         localStorage.setItem("token", JSON.stringify(res?.data?.accessToken));
         toast.success("Login successful!");
+        if (values?.remember) {
+          localStorage.setItem(
+            "user",
+            JSON.stringify({
+              email: values?.email,
+              password: values?.password,
+            })
+          );
+        } else {
+          localStorage.removeItem("user");
+        }
         navigate("/");
       } else {
         toast.error("Login failed.", res?.message || "Please try again.");
@@ -37,16 +49,14 @@ const Login = () => {
           name="normal_login"
           className="login-form bg-base rounded-2xl px-[150px] py-20 w-[686px] shadow-soft"
           initialValues={{
-            remember: false,
+            email: savedUser?.email || "",
+            password: savedUser?.password || "",
+            remember: !!savedUser,
           }}
           onFinish={onFinish}
         >
           <div className="flex justify-center">
-            <img
-              className="w-60 h-60"
-              src={logo}
-              alt="logo of the website"
-            />
+            <img className="w-60 h-60" src={logo} alt="logo of the website" />
           </div>
           <h3 className="text-2xl text-dark font-semibold leading-8 text-center pb-6">
             Log in to your account

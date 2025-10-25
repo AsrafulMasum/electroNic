@@ -22,7 +22,6 @@ const UpdatePassword = () => {
         newPassword: values?.newPassword,
         confirmPassword: values?.confirmPassword,
       };
-      console.log(data)
 
       try {
         const res = await resetPassword({

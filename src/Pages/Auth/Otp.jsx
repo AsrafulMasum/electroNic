@@ -6,6 +6,7 @@ import {
   useOtpVerifyMutation,
   useResendOTPMutation,
 } from "../../redux/features/authApi";
+import toast from "react-hot-toast";
 const Otp = () => {
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
@@ -16,13 +17,14 @@ const Otp = () => {
   const onFinish = async () => {
     const data = {
       email: email,
-      oneTimeCode: otp,
+      oneTimeCode: Number(otp),
     };
 
     try {
       const res = await otpVerify(data).unwrap();
       if (res?.success) {
-        navigate(`/update-password?token=${res?.data}`);
+        toast.success(res?.message);
+        navigate(`/update-password?token=${res?.data?.verifyToken}`);
       }
     } catch (error) {
       console.log(error);
@@ -55,7 +57,6 @@ const Otp = () => {
         <div
           style={{
             width: "620px",
-
             borderRadius: "12px",
             padding: "90px 57px",
           }}
@@ -79,7 +80,7 @@ const Otp = () => {
               marginTop: "24px",
             }}
           >
-            Enter the 4-digit code sent to your email.
+            Enter the 5-digit code sent to your email.
           </p>
 
           <div
@@ -94,7 +95,7 @@ const Otp = () => {
             <OTPInput
               value={otp}
               onChange={setOtp}
-              numInputs={4}
+              numInputs={5}
               inputStyle={{
                 height: "50px",
                 width: "55px",

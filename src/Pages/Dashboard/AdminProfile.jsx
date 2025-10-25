@@ -24,7 +24,7 @@ const AdminProfile = () => {
 
   const onImageChange = (e) => {
     const file = e.target.files[0];
-    if(file) {
+    if (file) {
       const imgUrl = URL.createObjectURL(file);
       setImagePick(imgUrl);
       setImage(file);
@@ -32,20 +32,16 @@ const AdminProfile = () => {
   };
 
   const handleSubmit = async (values) => {
-    console.log(values);
     const formData = new FormData();
-    if(image) {
+    if (image) {
       formData.append("image", image);
     }
-    Object.keys(values).forEach((key) => {
-      formData.append(key, values[key]);
-    });
+    formData.append("data", JSON.stringify(values));
     try {
       const data = await updateProfile(formData).unwrap();
-      if(data?.success) {
+      if (data?.success) {
         toast.success(data?.message);
         refetch();
-        setProfileEdit(false);
       }
     } catch (err) {
       toast.error(err?.message || "Update failed");
@@ -53,26 +49,33 @@ const AdminProfile = () => {
   };
 
   const handleChangePassword = async (values) => {
-    if(values?.current_password === values.new_password) {
-      setNewPassError("The New password is semilar with old Password");
+    if (values?.current_password === "") {
+      setCurPassError("Please Enter Current Password");
+    } else {
+      setCurPassError("");
+    }
+
+    if (values?.current_password === values.new_password) {
+      setNewPassError("The New password is similar with old Password");
     } else {
       setNewPassError("");
     }
 
-    if(values?.new_password !== values.confirm_password) {
+    if (values?.new_password !== values.confirm_password) {
       setConPassError("New Password and Confirm Password Doesn't Matched");
     } else {
       setConPassError("");
     }
+
     const payload = {
       currentPassword: values?.current_password,
       newPassword: values?.new_password,
       confirmPassword: values?.confirm_password,
     };
-    console.log(payload);
+
     try {
       const res = await changePassword(payload).unwrap();
-      if(res?.success) {
+      if (res?.success) {
         toast.success(res?.message);
       }
     } catch (error) {
@@ -263,33 +266,64 @@ const AdminProfile = () => {
                         width: "65%",
                       }}
                     >
-                      <div className="mb-3 space-y-1">
-                        <label
-                          style={{
-                            color: "#757575",
-                            fontSize: 14,
-                            fontWeight: 500,
-                          }}
-                        >
-                          Name
-                        </label>
-                        <Form.Item
-                          name={"name"}
-                          className="col-span-12"
-                          style={{ marginBottom: 0 }}
-                        >
-                          <Input
-                            placeholder={user?.name}
+                      <div className="flex items-center gap-4">
+                        <div className="mb-3 space-y-1 flex-1">
+                          <label
                             style={{
-                              width: "100%",
-                              height: "48px",
-                              border: "none",
-                              backgroundColor: "#FFFFFF",
                               color: "#757575",
-                              paddingLeft: "20px",
+                              fontSize: 14,
+                              fontWeight: 500,
                             }}
-                          />
-                        </Form.Item>
+                          >
+                            FirstName
+                          </label>
+                          <Form.Item
+                            name={"firstName"}
+                            className="col-span-12"
+                            style={{ marginBottom: 0 }}
+                          >
+                            <Input
+                              placeholder={user?.firstName}
+                              style={{
+                                width: "100%",
+                                height: "48px",
+                                border: "none",
+                                backgroundColor: "#FFFFFF",
+                                color: "#757575",
+                                paddingLeft: "20px",
+                              }}
+                            />
+                          </Form.Item>
+                        </div>
+
+                        <div className="mb-3 space-y-1 flex-1">
+                          <label
+                            style={{
+                              color: "#757575",
+                              fontSize: 14,
+                              fontWeight: 500,
+                            }}
+                          >
+                            LastName
+                          </label>
+                          <Form.Item
+                            name={"lastName"}
+                            className="col-span-12"
+                            style={{ marginBottom: 0 }}
+                          >
+                            <Input
+                              placeholder={user?.lastName}
+                              style={{
+                                width: "100%",
+                                height: "48px",
+                                border: "none",
+                                backgroundColor: "#FFFFFF",
+                                color: "#757575",
+                                paddingLeft: "20px",
+                              }}
+                            />
+                          </Form.Item>
+                        </div>
                       </div>
 
                       <div className="mb-3 space-y-1">
@@ -333,12 +367,12 @@ const AdminProfile = () => {
                           Contact no
                         </label>
                         <Form.Item
-                          name={"contact"}
+                          name={"phone"}
                           className="col-span-12"
                           style={{ marginBottom: 0 }}
                         >
                           <Input
-                            placeholder={user?.contact}
+                            placeholder={user?.phone}
                             style={{
                               width: "100%",
                               height: "48px",
