@@ -3,24 +3,28 @@ import { useDeleteSubCategoryMutation } from "../../redux/features/categoriesApi
 import { PiTrashLight } from "react-icons/pi";
 import toast from "react-hot-toast";
 
-
-const SubCategoryView = ({selectedCategory,  showSubModal, setShowSubModal, refetch }) => {
-  const [deleteSubCategory ] = useDeleteSubCategoryMutation()
+const SubCategoryView = ({
+  selectedCategory,
+  showSubModal,
+  setShowSubModal,
+  refetch,
+}) => {
+  const [deleteSubCategory] = useDeleteSubCategoryMutation();
 
   const handleDeleteSubCategory = async (id) => {
     try {
-      const res = await deleteSubCategory(id);  
-      if(res?.data?.success) {        
+      const res = await deleteSubCategory(id).unwrap();
+      if (res?.success) {
         refetch();
-        toast.success(res?.data?.message);        
-        setShowSubModal(false)
+        toast.success(res?.message);
+        setShowSubModal(false);
       }
     } catch (error) {
-        console.error("Add offer failed", error);
+      console.error("Add offer failed", error);
+      toast.error(error?.error?.message);
     }
   };
 
-  
   return (
     <Modal
       centered
@@ -40,7 +44,7 @@ const SubCategoryView = ({selectedCategory,  showSubModal, setShowSubModal, refe
 
         <div className="max-h-60 overflow-y-auto px-4">
           <ul className="grid grid-cols-1 gap-3">
-            {selectedCategory?.subcategories?.map((item, idx) => (
+            {selectedCategory?.subCategory?.map((item, idx) => (
               <li
                 key={idx}
                 className="py-2 px-4 rounded-md bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium transition flex items-center justify-between"
@@ -56,9 +60,8 @@ const SubCategoryView = ({selectedCategory,  showSubModal, setShowSubModal, refe
               </li>
             ))}
           </ul>
-        </div>        
+        </div>
       </div>
-      
     </Modal>
   );
 };

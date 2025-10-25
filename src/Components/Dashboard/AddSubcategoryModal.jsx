@@ -1,15 +1,10 @@
 import { Form, Input, Modal } from "antd";
 import { useForm } from "antd/es/form/Form";
-import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { CiImageOn } from "react-icons/ci";
 import {
-  useAddCategoryMutation,
   useAddSubCategoryMutation,
-  useUpdateCategoryMutation,
 } from "../../redux/features/categoriesApi";
 import { ImSpinner9 } from "react-icons/im";
-import { imageUrl } from "../../redux/api/baseApi";
 
 const AddSubCategoryModal = ({
   openSubCategory,
@@ -22,18 +17,23 @@ const AddSubCategoryModal = ({
   const [form] = useForm();
 
   const handleAddSubCategory = async (values) => {
-    try {
+    const payload = {
+      ...values,
+      categoryId: category,
+    };
 
-      const res = await addSubCategory({ ...values, category });
-      if(res?.data) {
+    try {
+      const res = await addSubCategory(payload).unwrap();
+      if (res?.success) {
         refetch();
         form.resetFields();
 
-        toast.success(res?.data?.message);
+        toast.success(res?.message);
         setOpenSubCategory(false);
       }
     } catch (error) {
       console.log("Validation Failed:", error);
+      toast.error(error?.data?.message);
     }
   };
 
@@ -43,7 +43,6 @@ const AddSubCategoryModal = ({
       open={openSubCategory}
       onCancel={() => {
         setOpenSubCategory(!openSubCategory);
-        setEditData(null);
         setImgURL(null);
         form.resetFields();
       }}
@@ -71,11 +70,12 @@ const AddSubCategoryModal = ({
           >
             <Input
               className="w-[100%] border outline-none px-3 py-[10px]"
-              type="text" placeholder="Enter Sub-Category Name"
+              type="text"
+              placeholder="Enter Sub-Category Name"
             />
           </Form.Item>
           <div className="text-center mt-6">
-            <button className="bg-[#2E7A8A] px-6 py-3 w-full text-[#FEFEFE] rounded-md flex items-center justify-center gap-2">
+            <button className="bg-green px-6 py-3 w-full text-[#FEFEFE] rounded-md flex items-center justify-center gap-2">
               {isLoading && <ImSpinner9 size={20} className="animate-spin" />}{" "}
               Add Sub-Category
             </button>

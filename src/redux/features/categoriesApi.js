@@ -12,7 +12,7 @@ const categoriesApi = baseApi.injectEndpoints({
     addSubCategory: builders.mutation({
       query: (data) => {
         return {
-          url: "/sub-category",
+          url: "/sub-categories/create",
           method: "POST",
           body: data,
         };
@@ -20,25 +20,25 @@ const categoriesApi = baseApi.injectEndpoints({
     }),
 
     deleteSubCategory: builders.mutation({
-      query: (id)=>{
+      query: (id) => {
         return {
-          url: `/sub-category/${id}`,
-          method: "DELETE",          
-        }
-      }
+          url: `/sub-categories/${id}`,
+          method: "DELETE",
+        };
+      },
     }),
 
     getCategories: builders.query({
-      query: ({searchTerm, page}) => ({
-        url: `/category/?searchTerm=${searchTerm}&page=${page}`,
+      query: ({ searchTerm, page }) => ({
+        url: `/categories/all-for-admin?searchTerm=${searchTerm}&page=${page}`,
         method: "GET",
       }),
     }),
-    
+
     addCategory: builders.mutation({
       query: (data) => {
         return {
-          url: "/category",
+          url: "/categories/create",
           method: "POST",
           body: data,
         };
@@ -48,16 +48,16 @@ const categoriesApi = baseApi.injectEndpoints({
     deleteCategory: builders.mutation({
       query: (id) => {
         return {
-          url: `/category/${id}`,
+          url: `/categories/${id}`,
           method: "DELETE",
         };
       },
     }),
-    
+
     updateCategory: builders.mutation({
       query: (data) => {
         return {
-          url: `/category/${data?.id}`,
+          url: `/categories/${data?.id}`,
           method: "PATCH",
           body: data?.formData,
         };
@@ -69,7 +69,7 @@ const categoriesApi = baseApi.injectEndpoints({
 export const {
   useGetSubCategoriesQuery,
   useAddSubCategoryMutation,
-  useDeleteSubCategoryMutation,  
+  useDeleteSubCategoryMutation,
   useGetCategoriesQuery,
   useAddCategoryMutation,
   useDeleteCategoryMutation,

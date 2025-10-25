@@ -20,7 +20,6 @@ import { useSearchParams } from "react-router-dom";
 
 const Category = () => {
   const [page, setPage] = useState(1);
-  const [open, setOpen] = useState(false);
   const [openAddModel, setOpenAddModel] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
 
@@ -41,7 +40,7 @@ const Category = () => {
     refetch,
   } = useGetCategoriesQuery({ searchTerm, page });
   const [deleteCategory] = useDeleteCategoryMutation();
-  
+
   // ------------------- Action -----------------------
 
   // Handle search input change
@@ -74,28 +73,27 @@ const Category = () => {
   // ------------------------- Table Column  --------------------
   const columns = [
     {
-      title: "Sl. No",
-      dataIndex: "serial",
-      key: "serial",
-      align: "left",
-      width: "100px",
-      render: (text) => <span style={{ color: "#757575" }}>#{text}</span>,
+      title: "Serial No.",
+      dataIndex: "key",
+      key: "key",
+      render: (_, __, index) => (
+        <span className="text-[#757575]">{index + 1}</span>
+      ),
     },
     {
       title: "Category Name",
-      // dataIndex: "title",
       key: "title",
       align: "left",
-      render: (record) => (
+      render: (_, record) => (
         <div className="flex items-center gap-3">
           <div className="h-12 w-12">
             <img
-              src={`${imageUrl}${record?.image}`}
+              src={`${imageUrl}${record?.thumbnail}`}
               alt=""
               className="w-full h-full object-cover rounded-md"
             />
           </div>
-          <span style={{ color: "#757575" }}>{record?.title}</span>
+          <span style={{ color: "#757575" }}>{record?.name}</span>
         </div>
       ),
     },
@@ -105,13 +103,13 @@ const Category = () => {
       align: "left",
       render: (_, record) => (
         <>
-          {record?.subcategories?.slice(0, 5).map((sCategory) => (
+          {record?.subCategory?.slice(0, 5).map((sCategory) => (
             <span key={sCategory?.name} style={{ color: "#757575" }}>
               {sCategory?.name},{" "}
             </span>
           ))}
 
-          {record?.subcategories?.length > 0 && (
+          {record?.subCategory?.length > 0 && (
             <span
               onClick={() => {
                 setSelectedCategory(record);
@@ -292,7 +290,6 @@ const Category = () => {
           </ConfigProvider>
         </div>
       </div>
-      {/* <UserDetailsModal open={open} setOpen={setOpen} /> */}
 
       <AddCategoryModal
         openAddModel={openAddModel}
@@ -310,54 +307,6 @@ const Category = () => {
         refetch={refetch}
       />
 
-      {/* <Modal
-        centered
-        open={openEditModal}
-        onCancel={() => {
-          setOpenEditModal(false);
-        }}
-        width={500}
-        footer={false}
-      >
-        <div className="p-6 ">
-          <h1
-            className="font-semibold text-black text-xl"
-            style={{ marginBottom: "12px" }}
-          >
-            {`Edit Category`}
-          </h1>
-
-          <Form form={form}>
-            <div>
-              <p className="text-[#6D6D6D] py-1">Category Name</p>
-              <Form.Item
-                name="categoryName"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input Package Name",
-                  },
-                ]}
-              >
-                <Input
-                  className="w-[100%] border outline-none px-3 py-[10px]"
-                  type="text"
-                />
-              </Form.Item>
-            </div>
-
-            <div className="text-center mt-6">
-              <button
-                onClick={handleUpdate}
-                className="bg-[#BB6D42] px-6 py-3 w-full text-[#FEFEFE] rounded-md"
-              >
-                Edit Category
-              </button>
-            </div>
-          </Form>
-        </div>
-      </Modal> */}
-
       <Modal
         centered
         open={showDelete}
@@ -374,7 +323,7 @@ const Category = () => {
           </p>
           <button
             onClick={handleDelete}
-            className="bg-[#2E7A8A] py-2 px-5 text-white rounded-md"
+            className="bg-green py-2 px-5 text-white rounded-md"
           >
             Confirm
           </button>

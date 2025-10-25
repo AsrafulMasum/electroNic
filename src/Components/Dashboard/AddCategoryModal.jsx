@@ -27,25 +27,29 @@ const AddCategoryModal = ({
 
   useEffect(() => {
     if (editData) {
-      form.setFieldsValue({ title: editData?.title });
+      form.setFieldsValue({ name: editData?.name });
     }
   }, [editData]);
 
   const handleAddCategory = async (values) => {
+    const data = {
+      name: values?.name,
+    };
     try {
       const formData = new FormData();
 
-      formData.append("title", values?.title);
+      formData.append("data", JSON.stringify(data));
+
       if (imageFile && imageFile.length > 0) {
         imageFile.forEach((file) => {
-          formData.append("image", file);
+          formData.append("thumbnail", file);
         });
       }
-      formData.append("image", imageFile);
+      formData.append("thumbnail", imageFile);
 
       if (editData) {
         const res = await updateCategory({ id: editData?._id, formData });
-        if (res?.data) {
+        if (res?.data?.success) {
           refetch();
           form.resetFields();
           setImgURL(null);
@@ -56,7 +60,7 @@ const AddCategoryModal = ({
         }
       } else {
         const res = await addCategory(formData);
-        if (res?.data) {
+        if (res?.data?.success) {
           refetch();
           form.resetFields();
           setImgURL(null);
@@ -68,6 +72,7 @@ const AddCategoryModal = ({
       }
     } catch (error) {
       console.log("Validation Failed:", error);
+      toast.error(error?.error?.message);
     }
   };
 
@@ -114,7 +119,7 @@ const AddCategoryModal = ({
                 <div className="flex justify-center items-center gap-10 mb-10">
                   <div className="h-32 w-full flex items-center justify-center bg-gray-300 rounded-lg relative">
                     <div className="p-4">
-                      {imgURL || editData?.image ? (
+                      {imgURL || editData?.thumbnail ? (
                         <>
                           {imgURL ? (
                             <img
@@ -125,10 +130,10 @@ const AddCategoryModal = ({
                           ) : (
                             <img
                               src={
-                                editData?.image?.startsWith("http")
-                                  ? editData?.image
-                                  : editData?.image
-                                  ? `${imageUrl}${editData?.image}`
+                                editData?.thumbnail?.startsWith("http")
+                                  ? editData?.thumbnail
+                                  : editData?.thumbnail
+                                  ? `${imageUrl}${editData?.thumbnail}`
                                   : "/default-avatar.jpg"
                               }
                               alt={`preview-`}
@@ -161,7 +166,7 @@ const AddCategoryModal = ({
 
               <p className="text-[#6D6D6D] py-1">Category Name</p>
               <Form.Item
-                name="title"
+                name="name"
                 rules={[
                   {
                     required: true,
@@ -177,7 +182,7 @@ const AddCategoryModal = ({
             </div>
 
             <div className="text-center mt-6">
-              <button className="bg-[#2E7A8A] px-6 py-3 w-full text-[#FEFEFE] rounded-md flex items-center justify-center gap-2">
+              <button className="bg-green px-6 py-3 w-full text-[#FEFEFE] rounded-md flex items-center justify-center gap-2">
                 {(isLoading || updating) && (
                   <ImSpinner9 size={20} className="animate-spin" />
                 )}
