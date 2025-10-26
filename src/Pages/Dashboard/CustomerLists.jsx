@@ -289,7 +289,7 @@ const CustomerLists = () => {
           </p>
           <button
             onClick={handleDelete}
-            className="bg-[#2E7A8A] py-2 px-5 text-white rounded-md"
+            className="bg-green py-2 px-5 text-white rounded-md"
           >
             Confirm
           </button>

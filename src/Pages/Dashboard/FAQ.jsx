@@ -1,6 +1,6 @@
 import { Modal, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CiEdit } from "react-icons/ci";
 import { GoQuestion } from "react-icons/go";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -10,39 +10,7 @@ import {
   useGetFAQQuery,
   useUpdateFAQMutation,
 } from "../../redux/features/faqApi";
-
-// const data = [
-//   {
-//     _id: "1",
-//     question: "What is an affiliate e-commerce website?",
-//     ans: "convallis. Praesent felis, placerat Ut ac quis dui volutpat vitae elementum quis adipiscing malesuada tempor non ipsum non, nec vitae amet, Donec tincidunt efficitur. in In ipsum Cras turpis viverra laoreet ullamcorper placerat diam sed leo. faucibus vitae eget vitae vehicula, luctus id Lorem fringilla tempor faucibus ipsum Vestibulum tincidunt ullamcorper elit diam turpis placerat vitae Nunc vehicula, ex faucibus venenatis at, maximus commodo urna. Nam ex quis sit non vehicula, massa urna at ",
-//   },
-//   {
-//     _id: "2",
-//     question: "What is an affiliate e-commerce website?2",
-//     ans: "convallis. Praesent felis, placerat Ut ac quis dui volutpat vitae elementum quis adipiscing malesuada tempor non ipsum non, nec vitae amet, Donec tincidunt efficitur. in In ipsum Cras turpis viverra laoreet ullamcorper placerat diam sed leo. faucibus vitae eget vitae vehicula, luctus id Lorem fringilla tempor faucibus ipsum Vestibulum tincidunt ullamcorper elit diam turpis placerat vitae Nunc vehicula, ex faucibus venenatis at, maximus commodo urna. Nam ex quis sit non vehicula, massa urna at ",
-//   },
-//   {
-//     _id: "3",
-//     question: "What is an affiliate e-commerce website?",
-//     ans: "convallis. Praesent felis, placerat Ut ac quis dui volutpat vitae elementum quis adipiscing malesuada tempor non ipsum non, nec vitae amet, Donec tincidunt efficitur. in In ipsum Cras turpis viverra laoreet ullamcorper placerat diam sed leo. faucibus vitae eget vitae vehicula, luctus id Lorem fringilla tempor faucibus ipsum Vestibulum tincidunt ullamcorper elit diam turpis placerat vitae Nunc vehicula, ex faucibus venenatis at, maximus commodo urna. Nam ex quis sit non vehicula, massa urna at ",
-//   },
-//   {
-//     _id: "4",
-//     question: "What is an affiliate e-commerce website?",
-//     ans: "convallis. Praesent felis, placerat Ut ac quis dui volutpat vitae elementum quis adipiscing malesuada tempor non ipsum non, nec vitae amet, Donec tincidunt efficitur. in In ipsum Cras turpis viverra laoreet ullamcorper placerat diam sed leo. faucibus vitae eget vitae vehicula, luctus id Lorem fringilla tempor faucibus ipsum Vestibulum tincidunt ullamcorper elit diam turpis placerat vitae Nunc vehicula, ex faucibus venenatis at, maximus commodo urna. Nam ex quis sit non vehicula, massa urna at ",
-//   },
-//   {
-//     _id: "5",
-//     question: "What is an affiliate e-commerce website?",
-//     ans: "convallis. Praesent felis, placerat Ut ac quis dui volutpat vitae elementum quis adipiscing malesuada tempor non ipsum non, nec vitae amet, Donec tincidunt efficitur. in In ipsum Cras turpis viverra laoreet ullamcorper placerat diam sed leo. faucibus vitae eget vitae vehicula, luctus id Lorem fringilla tempor faucibus ipsum Vestibulum tincidunt ullamcorper elit diam turpis placerat vitae Nunc vehicula, ex faucibus venenatis at, maximus commodo urna. Nam ex quis sit non vehicula, massa urna at ",
-//   },
-//   {
-//     _id: "6",
-//     question: "What is an affiliate e-commerce website?",
-//     ans: "convallis. Praesent felis, placerat Ut ac quis dui volutpat vitae elementum quis adipiscing malesuada tempor non ipsum non, nec vitae amet, Donec tincidunt efficitur. in In ipsum Cras turpis viverra laoreet ullamcorper placerat diam sed leo. faucibus vitae eget vitae vehicula, luctus id Lorem fringilla tempor faucibus ipsum Vestibulum tincidunt ullamcorper elit diam turpis placerat vitae Nunc vehicula, ex faucibus venenatis at, maximus commodo urna. Nam ex quis sit non vehicula, massa urna at ",
-//   },
-// ];
+import toast from "react-hot-toast";
 
 const FAQ = () => {
   const { data, refetch } = useGetFAQQuery();
@@ -66,9 +34,10 @@ const FAQ = () => {
     e.preventDefault();
     if (!form.question || !form.ans) return;
     const payload = {
-      title: form.question,
-      description: form.ans,
+      question: form.question,
+      answer: form.ans,
     };
+    
     try {
       await createFAQ(payload).unwrap();
       refetch();
@@ -85,9 +54,10 @@ const FAQ = () => {
     e.preventDefault();
     if (!form.question || !form.ans) return;
     const payload = {
-      title: form.question,
-      description: form.ans,
+      question: form.question,
+      answer: form.ans,
     };
+
     try {
       await updateFAQ({ id: currentId, faq: payload }).unwrap();
       refetch();
@@ -115,7 +85,7 @@ const FAQ = () => {
 
   // Open Edit Modal
   const openEdit = (item) => {
-    setForm({ question: item.title, ans: item.description });
+    setForm({ question: item.question, ans: item.answer });
     setCurrentId(item._id);
     setOpenEditModal(true);
   };
@@ -170,6 +140,7 @@ const FAQ = () => {
           </div>
         </div>
       </div>
+
       <div className="bg-white pb-6 px-4 rounded-md">
         {faqData?.map((item, index) => (
           <div key={index} className="flex justify-between items-start gap-4 ">
@@ -178,11 +149,14 @@ const FAQ = () => {
             </div>
             <div className="w-full ">
               <p className="text-base font-medium border-b rounded-lg py-2 px-4 flex items-center gap-8 bg-base">
-                <span className=" flex-1 text-[#757575]"> {item?.title} ?</span>
+                <span className=" flex-1 text-[#757575]">
+                  {" "}
+                  {item?.question} ?
+                </span>
               </p>
               <div className="flex justify-start items-start gap-2 border-b  py-2 px-4  rounded-lg my-4 bg-base shadow-none">
                 <p className="text-[#757575] leading-[24px] mb-6 ">
-                  {item?.description}
+                  {item?.answer}
                 </p>
               </div>
             </div>
@@ -263,7 +237,7 @@ const FAQ = () => {
                 width: "100%",
                 border: "none",
                 height: "44px",
-                background: "#2E7A8A",
+                background: "#09B782",
                 color: "white",
                 borderRadius: "8px",
                 outline: "none",
@@ -339,7 +313,7 @@ const FAQ = () => {
                 width: "100%",
                 border: "none",
                 height: "44px",
-                background: "#2E7A8A",
+                background: "#09B782",
                 color: "white",
                 borderRadius: "8px",
                 outline: "none",
@@ -369,7 +343,7 @@ const FAQ = () => {
           </p>
           <button
             onClick={handleDelete}
-            className="bg-[#2E7A8A] py-2 px-5 text-white rounded-md"
+            className="bg-green py-2 px-5 text-white rounded-md"
           >
             Confirm
           </button>

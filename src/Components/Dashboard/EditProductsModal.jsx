@@ -256,7 +256,7 @@ const EditProductsModal = ({
 
           <button
             type="submit"
-            className="bg-[#2E7A8A] px-6 py-3 w-full text-[#FEFEFE] rounded-lg flex items-center justify-center gap-2"
+            className="bg-green px-6 py-3 w-full text-[#FEFEFE] rounded-lg flex items-center justify-center gap-2"
           >
             {isLoading && <ImSpinner9 size={20} className="animate-spin" />}
             {isLoading ? "Uploading" : "Upload"}

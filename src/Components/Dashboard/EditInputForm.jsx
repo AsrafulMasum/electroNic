@@ -174,7 +174,7 @@ const EditInputForm = ({ packageData, refetch, setOpenEditModal }) => {
             style={{
               height: 48,
               width: "100%",
-              backgroundColor: "#2E7A8A",
+              backgroundColor: "#09B782",
               fontSize: "18px",
             }}
           >
