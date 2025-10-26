@@ -3,10 +3,10 @@ import { baseApi } from "../api/baseApi";
 const brandsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getBrands: builder.query({
-      query: () => {
+      query: ({ searchTerm, page }) => {
         return {
           method: "GET",
-          url: "/brands/all-for-admin",
+          url: `/brands/all-for-admin?searchTerm=${searchTerm}&page=${page}`,
         };
       },
     }),
@@ -22,11 +22,11 @@ const brandsApi = baseApi.injectEndpoints({
     }),
 
     updateBrand: builder.mutation({
-      query: (data) => {
+      query: ({ id, formData }) => {
         return {
           method: "PATCH",
-          url: `/brands/${data.id}`,
-          body: data?.body,
+          url: `/brands/${id}`,
+          body: formData,
         };
       },
     }),
