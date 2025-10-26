@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Button, ConfigProvider, Input, Modal, Select, Table } from "antd";
 import { FiSearch } from "react-icons/fi";
 import UserDetailsModal from "../../Components/Dashboard/UserDetailsModal";
-import provider from "../../assets/serviceProvider.png";
-import { CiLock, CiUnlock } from "react-icons/ci";
+import { PiTrashLight } from "react-icons/pi";
 import { PlusOutlined } from "@ant-design/icons";
 import AddAdminModal from "../../Components/Dashboard/AddAdminModal";
 import {
+  useDeleteAdminMutation,
   useGetAdminQuery,
   useLockUserMutation,
 } from "../../redux/features/usersApi";
@@ -18,8 +18,6 @@ const limit = 10;
 
 const ManageAdmin = () => {
   const [page, setPage] = useState(1);
-
-  const [open, setOpen] = useState(false);
   const [openAddModel, setOpenAddModel] = useState(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -30,15 +28,10 @@ const ManageAdmin = () => {
     isLoading,
     refetch,
   } = useGetAdminQuery({ searchTerm, page });
-  const [lockUser, { isLoading: updating }] = useLockUserMutation();
+  const [deleteAdmin, { isLoading: updating }] = useDeleteAdminMutation();
 
   const [showActive, setShowActive] = useState(false);
   const [selectAdmin, setSelectAdmin] = useState("");
-
-  const UserType = [
-    { value: "Normal User", label: "Normal User" },
-    { value: "Subscribed User", label: "Subscribed User" },
-  ];
 
   const columns = [
     {
@@ -68,7 +61,9 @@ const ManageAdmin = () => {
               className="h-12 w-12 object-cover rounded-full"
             />
           </div>
-          <span style={{ color: "#757575" }}>{record?.name}</span>
+          <span style={{ color: "#757575" }}>
+            {record?.firstName} {record?.lastName}
+          </span>
         </div>
       ),
     },
@@ -86,9 +81,9 @@ const ManageAdmin = () => {
     },
     {
       title: "Contact",
-      dataIndex: "contact",
-      key: "contact",
-      render: (text) => <span style={{ color: "#757575" }}>{text}</span>,
+      dataIndex: "phone",
+      key: "phone",
+      render: (text) => <span style={{ color: "#757575" }}>{text ? text : "Not Added Yet"}</span>,
     },
     {
       title: "Action",
@@ -119,11 +114,7 @@ const ManageAdmin = () => {
                 height: "32px",
               }}
             >
-              {record?.status === "active" ? (
-                <CiUnlock size={26} className="text-secondary" />
-              ) : (
-                <CiLock size={26} className="text-[#FF0000]" />
-              )}
+              <PiTrashLight size={26} className="text-[#FF0000]" />
             </button>
           </div>
         </div>
@@ -146,9 +137,9 @@ const ManageAdmin = () => {
     setSearchParams(newParams);
   };
 
-  const handleLockAdmin = async () => {
+  const handleDeleteAdmin = async () => {
     try {
-      const res = await lockUser({ id: selectAdmin });
+      const res = await deleteAdmin({ id: selectAdmin });
 
       if (res?.data) {
         toast.success(res?.data?.message);
@@ -308,7 +299,7 @@ const ManageAdmin = () => {
             Do you want to delete this content ?
           </p>
           <button
-            onClick={handleLockAdmin}
+            onClick={handleDeleteAdmin}
             className="bg-green py-2 px-5 text-white rounded-md"
           >
             Confirm

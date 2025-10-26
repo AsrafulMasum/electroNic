@@ -2,7 +2,7 @@ import { baseApi } from "../api/baseApi";
 
 const usersApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getStudents: builder.query({
+    getSellers: builder.query({
       query: ({ searchText, page }) => {
         return {
           url: `/user?role=MEMBER&searchTerm=${searchText}&page=${page}`,
@@ -11,59 +11,11 @@ const usersApi = baseApi.injectEndpoints({
       },
     }),
 
-    getUsers: builder.query({
+    getCustomers: builder.query({
       query: ({ srcText, page, subscriber }) => {
         return {
           url: `/user?role=GUEST&searchTerm=${srcText}&page=${page}&subscriber=${subscriber}`,
           method: "GET",
-        };
-      },
-    }),
-
-    getCoach: builder.query({
-      query: ({ searchTerm, page }) => {
-        return {
-          url: `/user?role=COUCH&searchTerm=${searchTerm}&page=${page}`,
-          method: "GET",
-        };
-      },
-    }),
-
-    addCoach: builder.mutation({
-      query: (data) => {
-        return {
-          url: "/user?role=COUCH",
-          method: "POST",
-          body: data,
-        };
-      },
-    }),
-
-    updateCoach: builder.mutation({
-      query: (data) => {
-        return {
-          url: "/user?role=COUCH",
-          method: "PATCH",
-          body: data,
-        };
-      },
-    }),
-
-    getAdmin: builder.query({
-      query: ({ searchTerm }) => {
-        return {
-          url: `/user?role=ADMIN&searchTerm=${searchTerm}`,
-          method: "GET",
-        };
-      },
-    }),
-
-    addAdmin: builder.mutation({
-      query: (data) => {
-        return {
-          url: "/user/admin",
-          method: "POST",
-          body: data,
         };
       },
     }),
@@ -76,15 +28,41 @@ const usersApi = baseApi.injectEndpoints({
         };
       },
     }),
+
+    getAdmin: builder.query({
+      query: ({ searchTerm, page }) => {
+        return {
+          url: `/admins/get-admin?searchTerm=${searchTerm}&page=${page}`,
+          method: "GET",
+        };
+      },
+    }),
+
+    addAdmin: builder.mutation({
+      query: (data) => {
+        return {
+          url: "/admins/create-admin",
+          method: "POST",
+          body: data,
+        };
+      },
+    }),
+
+    deleteAdmin: builder.mutation({
+      query: ({ id }) => {
+        return {
+          url: `/admins/${id}`,
+          method: "DELETE",
+        };
+      },
+    }),
   }),
 });
 export const {
-  useGetStudentsQuery,
-  useGetUsersQuery,
-  useUpdateCoachMutation,
+  useGetSellersQuery,
+  useGetCustomersQuery,
   useGetAdminQuery,
-  useAddCoachMutation,
   useLockUserMutation,
-  useGetCoachQuery,
   useAddAdminMutation,
+  useDeleteAdminMutation,
 } = usersApi;

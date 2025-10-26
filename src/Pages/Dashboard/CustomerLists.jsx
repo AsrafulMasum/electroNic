@@ -5,7 +5,7 @@ import UserDetailsModal from "../../Components/Dashboard/UserDetailsModal";
 import { CiLock, CiUnlock } from "react-icons/ci";
 import { GoArrowUpRight } from "react-icons/go";
 import {
-  useGetUsersQuery,
+  useGetCustomersQuery,
   useLockUserMutation,
 } from "../../redux/features/usersApi";
 import { imageUrl } from "../../redux/api/baseApi";
@@ -16,15 +16,13 @@ const CustomerLists = () => {
   const [page, setPage] = useState(1);
   const [searchText, setSearchText] = useState("");
   const [lock, setLock] = useState("");
-  const [userType, setUserType] = useState("User Type");
   const {
     data: userData,
     refetch,
     isLoading,
-  } = useGetUsersQuery({
+  } = useGetCustomersQuery({
     srcText: searchText,
     page,
-    subscriber: userType,
   });
   const [lockUser] = useLockUserMutation();
 

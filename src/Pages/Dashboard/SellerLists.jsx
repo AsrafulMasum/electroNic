@@ -6,7 +6,7 @@ import { CiLock, CiUnlock } from "react-icons/ci";
 import { GoArrowUpRight } from "react-icons/go";
 import { imageUrl } from "../../redux/api/baseApi";
 import {
-  useGetStudentsQuery,
+  useGetSellersQuery,
   useLockUserMutation,
 } from "../../redux/features/usersApi";
 import toast from "react-hot-toast";
@@ -30,7 +30,7 @@ const SellerLists = () => {
     data: userData,
     refetch,
     isLoading,
-  } = useGetStudentsQuery({ searchText, page });
+  } = useGetSellersQuery({ searchText, page });
   const { data: courses } = useGetCoursesQuery({});
 
   const [lockUser] = useLockUserMutation();

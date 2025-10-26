@@ -11,7 +11,16 @@ const AddAdminModal = ({ openAddModel, setOpenAddModel, refetch }) => {
   const handleAddAdmin = async () => {
     try {
       const values = await form.validateFields();
-      const res = await addAdmin(values).unwrap();
+      const payload = {
+        firstName: values?.firstName,
+        lastName: values?.lastName,
+        email: values?.email,
+        password: values?.password,
+        phone: values?.phone,
+        role: "ADMIN",
+      };
+
+      const res = await addAdmin(payload).unwrap();
       if (res?.success) {
         setOpenAddModel(false);
         toast.success(res?.message);
@@ -19,7 +28,7 @@ const AddAdminModal = ({ openAddModel, setOpenAddModel, refetch }) => {
       }
     } catch (error) {
       console.log("Validation Failed:", error);
-      toast.error(error?.data?.message);
+      toast.error("Failed to add admin. Please try again.");
     }
   };
 
@@ -43,13 +52,13 @@ const AddAdminModal = ({ openAddModel, setOpenAddModel, refetch }) => {
 
         <Form form={form}>
           <div>
-            <p className="text-[#6D6D6D] py-1">Name</p>
+            <p className="text-[#6D6D6D] py-1">First Name</p>
             <Form.Item
-              name="name"
+              name="firstName"
               rules={[
                 {
                   required: true,
-                  message: "Please input Name",
+                  message: "Please input First Name",
                 },
               ]}
             >
@@ -59,6 +68,24 @@ const AddAdminModal = ({ openAddModel, setOpenAddModel, refetch }) => {
               />
             </Form.Item>
           </div>
+          <div>
+            <p className="text-[#6D6D6D] py-1">Last Name</p>
+            <Form.Item
+              name="lastName"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input Last Name",
+                },
+              ]}
+            >
+              <Input
+                className="w-[100%] border outline-none px-3 py-[10px]"
+                type="text"
+              />
+            </Form.Item>
+          </div>
+
           <div>
             <p className="text-[#6D6D6D] py-1">Email </p>
             <Form.Item
@@ -77,9 +104,9 @@ const AddAdminModal = ({ openAddModel, setOpenAddModel, refetch }) => {
             </Form.Item>
           </div>
           <div>
-            <p className="text-[#6D6D6D] py-1">Contact No </p>
+            <p className="text-[#6D6D6D] py-1">Contact No.</p>
             <Form.Item
-              name="contact"
+              name="phone"
               rules={[
                 {
                   required: true,
@@ -93,24 +120,9 @@ const AddAdminModal = ({ openAddModel, setOpenAddModel, refetch }) => {
               />
             </Form.Item>
           </div>
-          <div style={{ width: "100%" }}>
-            <p className="text-[#6D6D6D] py-1">Designation </p>
-            <Form.Item name="role">
-              <Select
-                placeholder="Select admin designation"
-                style={{
-                  width: "100%",
-                  height: 40,
-                }}
-              >
-                <Option value="SUPER_ADMIN">SUPER_ADMIN</Option>
-                <Option value="ADMIN">ADMIN</Option>
-              </Select>
-            </Form.Item>
-          </div>
 
           <div className="mt-5">
-            <p className="text-[#6D6D6D] py-1">Password </p>
+            <p className="text-[#6D6D6D] py-1">Password</p>
             <Form.Item
               name="password"
               rules={[
