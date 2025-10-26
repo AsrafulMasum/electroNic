@@ -1,4 +1,4 @@
-import { Button, Calendar, ConfigProvider, Modal, Table } from "antd";
+import { Button, Calendar, ConfigProvider, Input, Modal, Table } from "antd";
 import { useState } from "react";
 import { PlusOutlined } from "@ant-design/icons";
 import { CiEdit, CiImageOn } from "react-icons/ci";
@@ -13,6 +13,7 @@ import {
 } from "../../redux/features/offersApi";
 import dayjs from "dayjs";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { FiSearch } from "react-icons/fi";
 
 const AppSlider = () => {
   const { data: offersData, refetch } = useGetOffersQuery();
@@ -190,6 +191,18 @@ const AppSlider = () => {
     }
   };
 
+  const handleSearchChange = (e) => {
+    const newValue = e.target.value;
+
+    const newParams = new URLSearchParams(searchParams);
+    if (newValue) {
+      newParams.set("searchTerm", newValue);
+    } else {
+      newParams.delete("searchTerm");
+    }
+    setSearchParams(newParams);
+  };
+
   const columns = [
     {
       title: "Serial ID",
@@ -263,50 +276,6 @@ const AppSlider = () => {
 
   return (
     <div className="w-full h-full bg-white">
-      {/* <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          width: "100%",
-          marginBottom: "20px",
-        }}
-      >
-        <h3
-          style={{
-            color: "#0F665A",
-            fontSize: 24,
-            fontWeight: "500",
-            lineHeight: "24px",
-          }}
-        >
-          Offers
-        </h3>
-        <div>
-          <Button
-            onClick={() => {
-              setOpenAddModel(true);
-            }}
-            style={{
-              width: "177px",
-              height: "40px",
-              boxShadow: "0px 2px 4px 0px #0000001A",
-              backgroundColor: "#0F665A",
-              border: "none",
-              transition: "none",
-              color: "#fff",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "8px",
-            }}
-          >
-            <PlusOutlined />
-            <span style={{ margin: 0 }}>Add Offer</span>
-          </Button>
-        </div>
-      </div> */}
-
       <div
         style={{
           display: "flex",
@@ -329,7 +298,7 @@ const AppSlider = () => {
           </h3>
         </div>
         <div className="flex items-center gap-3">
-          {/* <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
             <div
               style={{
                 width: "350px",
@@ -358,7 +327,7 @@ const AppSlider = () => {
                 />
               </ConfigProvider>
             </div>
-          </div> */}
+          </div>
           <Button
             onClick={() => {
               setOpenAddModel(true);
@@ -730,7 +699,15 @@ const AppSlider = () => {
             className="bg-white shadow-lg rounded-md p-2 max-w-96"
             style={{ minWidth: 320 }}
           >
-            <Calendar fullscreen={false} onSelect={handleDateChange} />
+            <ConfigProvider
+              theme={{
+                token: {
+                  colorPrimary: "#09B782",
+                },
+              }}
+            >
+              <Calendar fullscreen={false} onSelect={handleDateChange} />
+            </ConfigProvider>
           </div>
         </div>
       )}

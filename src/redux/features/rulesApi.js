@@ -6,7 +6,7 @@ const rulesApi = baseApi.injectEndpoints({
       query: ({ type }) => {
         return {
           method: "GET",
-          url: `/disclaimer?type=${type}`,
+          url: `/settings?key=${type}`,
         };
       },
     }),
@@ -14,8 +14,8 @@ const rulesApi = baseApi.injectEndpoints({
     updateRules: builder.mutation({
       query: (data) => {
         return {
-          method: "POST",
-          url: "/disclaimer",
+          method: "PUT",
+          url: "/settings",
           body: data,
         };
       },

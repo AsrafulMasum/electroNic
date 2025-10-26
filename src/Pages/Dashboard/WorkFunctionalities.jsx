@@ -1,22 +1,27 @@
 import { useEffect, useRef, useState } from "react";
 import JoditEditor from "jodit-react";
 import toast from "react-hot-toast";
-import { useGetRulesQuery, useUpdateRulesMutation } from "../../redux/features/rulesApi";
+import {
+  useGetRulesQuery,
+  useUpdateRulesMutation,
+} from "../../redux/features/rulesApi";
 
 const WorkFunctionalities = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
 
   // Fetching data from API
-  const { data, isLoading, isError } = useGetRulesQuery({ type: "privacy" });
+  const { data, isLoading, isError } = useGetRulesQuery({
+    type: "workFunctionality",
+  });
 
   // Mutation hook for updating data
   const [updateRules, { isLoading: isUpdating }] = useUpdateRulesMutation();
 
   // Set content when data is fetched
   useEffect(() => {
-    if (data?.data?.content) {
-      setContent(data.data.content);
+    if (data?.data) {
+      setContent(data.data);
     }
   }, [data]);
 
@@ -40,12 +45,13 @@ const WorkFunctionalities = () => {
       return;
     }
 
+    const payload = {
+      workFunctionality: content,
+    };
+
     try {
-      await updateRules({
-        type: "privacy",
-        content,
-      }).unwrap();
-      toast.success("Updated successfully!");
+      await updateRules(payload).unwrap();
+      toast.success("Work Functionalities Updated successfully!");
     } catch (err) {
       console.error("Update failed", err);
       toast.error("Failed to update");

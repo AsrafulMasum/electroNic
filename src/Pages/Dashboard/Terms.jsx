@@ -1,22 +1,27 @@
 import { useEffect, useRef, useState } from "react";
 import JoditEditor from "jodit-react";
 import toast from "react-hot-toast";
-import { useGetRulesQuery, useUpdateRulesMutation } from "../../redux/features/rulesApi";
+import {
+  useGetRulesQuery,
+  useUpdateRulesMutation,
+} from "../../redux/features/rulesApi";
 
 const Terms = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
 
   // Fetching data from API
-  const { data, isLoading, isError } = useGetRulesQuery({ type: "terms" });
+  const { data, isLoading, isError } = useGetRulesQuery({
+    type: "termsOfService",
+  });
 
   // Mutation hook for updating data
   const [updateRules, { isLoading: isUpdating }] = useUpdateRulesMutation();
 
   // Set content when data is fetched
   useEffect(() => {
-    if (data?.data?.content) {
-      setContent(data.data.content);
+    if (data?.data) {
+      setContent(data.data);
     }
   }, [data]);
 
@@ -40,12 +45,13 @@ const Terms = () => {
       return;
     }
 
+    const payload = {
+      termsOfService: content,
+    };
+
     try {
-      await updateRules({
-        type: "terms",
-        content,
-      }).unwrap();
-      toast.success("Updated successfully!");
+      await updateRules(payload).unwrap();
+      toast.success("Terms and Conditions Updated successfully!");
     } catch (err) {
       console.error("Update failed", err);
       toast.error("Failed to update");
