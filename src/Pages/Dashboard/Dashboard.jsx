@@ -15,7 +15,7 @@ import { RiAdminLine, RiMoneyDollarCircleLine } from "react-icons/ri";
 import { useEffect, useMemo, useState } from "react";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { GoQuestion } from "react-icons/go";
-import { BsExclamationCircle } from "react-icons/bs";
+import { BsCart4, BsExclamationCircle } from "react-icons/bs";
 import { MdOutlineCategory } from "react-icons/md";
 import logo from "../../assets/logo.svg";
 import { useProfileQuery } from "../../redux/features/authApi";
@@ -73,7 +73,7 @@ const Dashboard = () => {
       ),
     },
     {
-      title: "Seller Lists",
+      title: "Sellers",
       path: "/seller-lists",
       icon: (pathname) => (
         <LuUserCog
@@ -84,7 +84,7 @@ const Dashboard = () => {
       ),
     },
     {
-      title: "Customer Lists",
+      title: "Customers",
       path: "/customer-lists",
       icon: (pathname) => (
         <TbUsers
@@ -122,7 +122,7 @@ const Dashboard = () => {
       title: "Products",
       path: "/products",
       icon: (pathname) => (
-        <IoFootballOutline
+        <BsCart4
           className={`text-2xl ${
             pathname === "/products" ? "text-[#EEEEEE]" : "text-[#A3A3A3]"
           }`}

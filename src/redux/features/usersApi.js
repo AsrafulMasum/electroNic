@@ -5,16 +5,16 @@ const usersApi = baseApi.injectEndpoints({
     getSellers: builder.query({
       query: ({ searchText, page }) => {
         return {
-          url: `/user?role=MEMBER&searchTerm=${searchText}&page=${page}`,
+          url: `/user-managements/seller?searchTerm=${searchText}&page=${page}`,
           method: "GET",
         };
       },
     }),
 
     getCustomers: builder.query({
-      query: ({ srcText, page, subscriber }) => {
+      query: ({ srcText, page }) => {
         return {
-          url: `/user?role=GUEST&searchTerm=${srcText}&page=${page}&subscriber=${subscriber}`,
+          url: `/user-managements?searchTerm=${srcText}&page=${page}`,
           method: "GET",
         };
       },

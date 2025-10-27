@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { ConfigProvider, Input, Modal, Select, Table } from "antd";
+import { ConfigProvider, Input, Modal, Table } from "antd";
 import { FiSearch } from "react-icons/fi";
-import UserDetailsModal from "../../Components/Dashboard/UserDetailsModal";
 import { CiLock, CiUnlock } from "react-icons/ci";
-import { GoArrowUpRight } from "react-icons/go";
 import {
   useGetCustomersQuery,
   useLockUserMutation,
@@ -67,7 +65,7 @@ const CustomerLists = () => {
                 color: "#757575",
               }}
             >
-              {record?.name}
+              {record?.firstName} {record?.lastName}
             </p>
           </div>
         );
@@ -81,20 +79,10 @@ const CustomerLists = () => {
     },
     {
       title: "Contact No.",
-      dataIndex: "contact",
-      key: "contact",
+      dataIndex: "phone",
+      key: "phone",
       render: (text) => <span style={{ color: "#757575" }}>{text}</span>,
     },
-    // {
-    //   title: "Type",
-    //   dataIndex: "type",
-    //   key: "type",
-    //   render: (_, record) => (
-    //     <span style={{ color: "#757575" }}>
-    //       {record?.subscription ? "Subscribed User" : "Normal User"}
-    //     </span>
-    //   ),
-    // },
     {
       title: "Start Date",
       dataIndex: "createdAt",
