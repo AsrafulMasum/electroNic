@@ -6,7 +6,7 @@ const offersApi = baseApi.injectEndpoints({
       query: () => {
         return {
           method: "GET",
-          url: "/offer",
+          url: "/banners",
         };
       },
     }),
@@ -15,18 +15,18 @@ const offersApi = baseApi.injectEndpoints({
       query: (payload) => {
         return {
           method: "POST",
-          url: "/offer",
+          url: "/banners",
           body: payload,
         };
       },
     }),
 
     updateOffer: builder.mutation({
-      query: (data) => {
+      query: ({ id, formData }) => {
         return {
           method: "PATCH",
-          url: `/offer/${data.id}`,
-          body: data?.body,
+          url: `/banners/${id}`,
+          body: formData,
         };
       },
     }),
@@ -35,7 +35,7 @@ const offersApi = baseApi.injectEndpoints({
       query: (id) => {
         return {
           method: "DELETE",
-          url: `/offer/${id}`,
+          url: `/banners/${id}`,
         };
       },
     }),

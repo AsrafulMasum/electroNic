@@ -7,11 +7,11 @@ import { CiImageOn } from "react-icons/ci";
 import { ImSpinner9 } from "react-icons/im";
 import { imageUrl } from "../../redux/api/baseApi";
 import {
-  useCreateBrandMutation,
-  useUpdateBrandMutation,
-} from "../../redux/features/brandsApi";
+  useCreateOfferMutation,
+  useUpdateOfferMutation,
+} from "../../redux/features/offersApi";
 
-const AddBrandModal = ({
+const AddAppSliderModal = ({
   openAddModel,
   setOpenAddModel,
   editData,
@@ -20,8 +20,8 @@ const AddBrandModal = ({
 }) => {
   const [imgURL, setImgURL] = useState(null);
   const [imageFile, setImageFile] = useState(null);
-  const [createBrand, { isLoading }] = useCreateBrandMutation();
-  const [updateBrand, { isLoading: updatingBrand }] = useUpdateBrandMutation();
+  const [createOffer, { isLoading }] = useCreateOfferMutation();
+  const [updateOffer, { isLoading: updatingBrand }] = useUpdateOfferMutation();
 
   const [form] = useForm();
 
@@ -42,31 +42,31 @@ const AddBrandModal = ({
 
       if (imageFile && imageFile.length > 0) {
         imageFile.forEach((file) => {
-          formData.append("image", file);
+          formData.append("banner", file);
         });
       }
-      formData.append("image", imageFile);
+      formData.append("banner", imageFile);
 
       if (editData) {
-        const res = await updateBrand({ id: editData?._id, formData }).unwrap();
+        const res = await updateOffer({ id: editData?._id, formData }).unwrap();
         if (res?.success) {
           refetch();
           form.resetFields();
           setImgURL(null);
           setImageFile(null);
 
-          toast.success(res?.data?.message);
+          toast.success(res?.message);
           setOpenAddModel(false);
         }
       } else {
-        const res = await createBrand(formData).unwrap();
+        const res = await createOffer(formData).unwrap();
         if (res?.success) {
           refetch();
           form.resetFields();
           setImgURL(null);
           setImageFile(null);
 
-          toast.success(res?.data?.message);
+          toast.success(res?.message);
           setOpenAddModel(false);
         }
       }
@@ -101,7 +101,7 @@ const AddBrandModal = ({
             className="font-semibold text-black text-xl"
             style={{ marginBottom: "12px" }}
           >
-            {`${editData ? "Edit" : "Add"} Brand`}
+            {`${editData ? "Edit" : "Add"} App Slider`}
           </h1>
 
           <Form form={form} onFinish={handleSubmit}>
@@ -119,7 +119,7 @@ const AddBrandModal = ({
                 <div className="flex justify-center items-center gap-10 mb-10">
                   <div className="h-36 w-full flex items-center justify-center bg-gray-300 rounded-lg relative">
                     <div className="p-4">
-                      {imgURL || editData?.image ? (
+                      {imgURL || editData?.banner ? (
                         <>
                           {imgURL ? (
                             <img
@@ -130,10 +130,10 @@ const AddBrandModal = ({
                           ) : (
                             <img
                               src={
-                                editData?.image?.startsWith("http")
-                                  ? editData?.image
-                                  : editData?.image
-                                  ? `${imageUrl}${editData?.image}`
+                                editData?.banner?.startsWith("http")
+                                  ? editData?.banner
+                                  : editData?.banner
+                                  ? `${imageUrl}${editData?.banner}`
                                   : "/default-avatar.jpg"
                               }
                               alt={`preview-`}
@@ -164,7 +164,7 @@ const AddBrandModal = ({
                 </div>
               </Form.Item>
 
-              <p className="text-[#6D6D6D] py-1">Brand Name</p>
+              <p className="text-[#6D6D6D] py-1">Banner Name</p>
               <Form.Item
                 name="name"
                 rules={[
@@ -196,4 +196,4 @@ const AddBrandModal = ({
   );
 };
 
-export default AddBrandModal;
+export default AddAppSliderModal;
