@@ -1,14 +1,11 @@
 import { useState } from "react";
 import { Button, ConfigProvider, Input, Select, Table, Tag } from "antd";
 import { FiSearch } from "react-icons/fi";
-import {
-  useChangeOrderStatusMutation,
-  useGetSellingListQuery,
-} from "../../redux/features/paymentApi";
+import { useChangeOrderStatusMutation } from "../../redux/features/paymentApi";
 import { imageUrl } from "../../redux/api/baseApi";
-import { IoDownloadOutline } from "react-icons/io5";
 import moment from "moment";
 import toast from "react-hot-toast";
+import { useGetOrdersListQuery } from "../../redux/features/bookingsApi";
 
 const limit = 10;
 
@@ -20,42 +17,24 @@ const SellingsDetails = () => {
     data: sellingList,
     refetch,
     isLoading,
-  } = useGetSellingListQuery({
+  } = useGetOrdersListQuery({
     page,
     limit,
     searchTerm: searchText,
   });
 
-  const statusOptions = [
-    { value: "pending", label: "Pending" },
-    { value: "packing", label: "Packing" },
-    { value: "shipping", label: "Shipping" },
-    { value: "cancelled", label: "Cancelled" },
-    { value: "delivered", label: "Delivered" },
-  ];
-
   const statusColorMap = {
     pending: { color: "#D48806", bg: "#F7F1CC" },
-    packing: { color: "#1890FF", bg: "#D9EEFF" },
-    shipping: { color: "#13C2C2", bg: "#CCFAF9" },
+    processing: { color: "#1890FF", bg: "#D9EEFF" },
+    shipped: { color: "#13C2C2", bg: "#CCFAF9" },
     cancelled: { color: "#FF4D4F", bg: "#FFD8D7" },
     delivered: { color: "#52C41A", bg: "#D9F2CD" },
+    returned: { color: "#FF0000", bg: "#FFCCCC" },
   };
 
   const handleSearchChange = (e) => {
     e.preventDefault();
     setSearchText(e.target.value);
-  };
-
-  const handleDownload = (record) => {
-    if (record?.invoice) {
-      const link = document.createElement("a");
-      link.href = record.invoice;
-      link.setAttribute("download", "");
-      link.click();
-    } else {
-      toast.error("Invoice not available.");
-    }
   };
 
   const columns = [
@@ -69,8 +48,8 @@ const SellingsDetails = () => {
     },
     {
       title: "Order Id",
-      dataIndex: "orderid",
-      key: "orderid",
+      dataIndex: "orderNumber",
+      key: "orderNumber",
       render: (text) => <span className="text-[#757575]">{text}</span>,
     },
     {
@@ -80,56 +59,36 @@ const SellingsDetails = () => {
       render: (_, record) => {
         return (
           <div className="flex gap-1">
-            {record?.orderItems?.map((item) => (
-              <img
-                key={item?._id}
-                src={
-                  item?.image && item?.image.startsWith("http")
-                    ? item?.image
-                    : item?.image
-                    ? `${imageUrl}${item?.image}`
-                    : "/default-avatar.jpg"
-                }
-                alt={`Product ${item?._id}`}
-                className="w-10 h-10 object-cover rounded border border-[#3F857B]"
-              />
-            ))}
+            {record?.products[0]?.productId?.images?.map((item) => {
+              return (
+                <img
+                  key={item}
+                  src={
+                    item && item.startsWith("http")
+                      ? item
+                      : item
+                      ? `${imageUrl}${item}`
+                      : "/default-avatar.jpg"
+                  }
+                  alt={`Product ${item}`}
+                  className="w-10 h-10 object-cover rounded border border-[#3F857B]"
+                />
+              );
+            })}
           </div>
         );
       },
     },
     {
       title: "User Name",
-      dataIndex: "user",
-      key: "user",
-      render: (user) => {
-        return (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 12,
-            }}
-          >
-            <p>{user?.img} </p>
-
-            <p
-              style={{
-                letterSpacing: 0.4,
-                fontWeight: "400",
-                color: "#757575",
-              }}
-            >
-              {user?.name}
-            </p>
-          </div>
-        );
-      },
+      dataIndex: "customerName",
+      key: "customerName",
+      render: (text) => <span style={{ color: "#757575" }}>{text}</span>,
     },
     {
       title: "Contact No.",
-      dataIndex: "phone",
-      key: "phone",
+      dataIndex: "phoneNumber",
+      key: "phoneNumber",
       render: (text) => <span style={{ color: "#757575" }}>{text}</span>,
     },
     {
@@ -144,8 +103,8 @@ const SellingsDetails = () => {
     },
     {
       title: "Status",
-      dataIndex: "status",
-      key: "status",
+      dataIndex: "deliveryStatus",
+      key: "deliveryStatus",
       render: (status, record) => {
         const currentStyle = statusColorMap[status] || {
           color: "#595959",
@@ -153,83 +112,18 @@ const SellingsDetails = () => {
         };
 
         return (
-          <select
-            value={status}
-            onChange={async (e) => {
-              const newStatus = e.target.value;
-
-              const data = {
-                orderId: record._id,
-                status: { status: newStatus },
-              };
-              try {
-                const res = await changeOrderStatus({ data }).unwrap();
-                if (res?.success) {
-                  refetch();
-                  toast.success(res?.message);
-                }
-              } catch (error) {
-                console.error("Failed to update status", error);
-                toast.error(error?.data?.message);
-              }
-            }}
+          <p
+            className="capitalize px-1 py-0.5 text-center rounded-lg"
             style={{
-              backgroundColor: currentStyle.bg,
               color: currentStyle.color,
-              fontWeight: 500,
-              borderRadius: 6,
-              fontSize: 13,
-              width: 120,
-              height: 28,
-              padding: "0 8px",
-              border: "none",
-              cursor: "pointer",
-              textAlign: "center",
-              appearance: "none",
-              WebkitAppearance: "none",
-              MozAppearance: "none",
-              outline: "none",
+              backgroundColor: currentStyle.bg,
             }}
           >
-            {statusOptions.map(({ value, label }) => (
-              <option key={value} value={value} style={{ textAlign: "center" }}>
-                {label}
-              </option>
-            ))}
-          </select>
+            {record?.deliveryStatus}
+          </p>
         );
       },
     },
-    // {
-    //   title: "Invoice",
-    //   dataIndex: "invoice",
-    //   key: "invoice",
-    //   render: (_, record) => (
-    //     <div
-    //       style={{
-    //         display: "flex",
-    //         alignItems: "center",
-    //         gap: "10px",
-
-    //         paddingRight: 10,
-    //       }}
-    //     >
-    //       <button
-    //         onClick={() => handleDownload(record)}
-    //         className="flex justify-center items-center rounded-md pb-1"
-    //         style={{
-    //           cursor: "pointer",
-    //           border: "none",
-    //           outline: "none",
-    //           width: "40px",
-    //           height: "32px",
-    //         }}
-    //       >
-    //         <IoDownloadOutline size={26} className="text-secondary" />
-    //       </button>
-    //     </div>
-    //   ),
-    // },
   ];
 
   return (
@@ -313,10 +207,10 @@ const SellingsDetails = () => {
               size="small"
               rowKey="_id"
               columns={columns}
-              dataSource={sellingList?.data}
+              dataSource={sellingList?.data?.orders}
               loading={isLoading}
               pagination={{
-                total: sellingList?.pagination?.total,
+                total: sellingList?.meta?.total,
                 current: page,
                 pageSize: limit,
                 onChange: (page) => setPage(page),

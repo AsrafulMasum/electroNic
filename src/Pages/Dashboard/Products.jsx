@@ -1,40 +1,24 @@
-import { PlusOutlined } from "@ant-design/icons";
-import { Button, ConfigProvider, Input, Modal, Table } from "antd";
+import { ConfigProvider, Input, Table } from "antd";
 import { useState } from "react";
-import toast from "react-hot-toast";
-import { FiEdit } from "react-icons/fi";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import AddProductsModal from "../../Components/Dashboard/AddProductsModal";
-import EditProductsModal from "../../Components/Dashboard/EditProductsModal";
 import { imageUrl } from "../../redux/api/baseApi";
-import {
-  useDeleteProductMutation,
-  useGetProductsQuery,
-} from "../../redux/features/productApi";
 import { useSearchParams } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
+import { useGetProductsQuery } from "../../redux/features/productApi";
 
 const Products = () => {
   const limit = 10;
   // ----------------- Hooks ------------------------
   const [page, setPage] = useState(1);
-  const [openAddModal, setOpenAddModel] = useState(false);
-  const [openEditModel, setOpenEditModel] = useState(false);
-
-  const [showDelete, setShowDelete] = useState(false);
-  const [deleteId, setDeleteId] = useState("");
-
-  const [value, setValue] = useState(null);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const searchTerm = searchParams.get("searchTerm") || "";
 
-  const {
-    data: productData,
-    isLoading,
-    refetch,
-  } = useGetProductsQuery({ searchTerm, page, limit });
-  const [deleteProduct] = useDeleteProductMutation();
+  const { data: productData, isLoading } = useGetProductsQuery({
+    searchTerm,
+    page,
+    limit,
+  });
+  
   // ----------------------- Action ------------------------
   // Handle search input change
   const handleSearchChange = (e) => {
@@ -49,21 +33,6 @@ const Products = () => {
     setSearchParams(newParams);
   };
 
-  const handleDelete = async (id) => {
-    try {
-      const res = await deleteProduct(id);
-      if (res?.data?.success) {
-        toast.success("Deleted Product Successfully");
-        refetch();
-        setShowDelete(!showDelete);
-        setDeleteId("");
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // ---------------- Table Column -------------------
   const columns = [
     {
       title: "Serial No.",
@@ -74,8 +43,8 @@ const Products = () => {
     },
     {
       title: "Product Name",
-      dataIndex: "title",
-      key: "title",
+      dataIndex: "name",
+      key: "name",
       render: (title) => <span className="text-[#757575]">{title}</span>,
     },
     {
@@ -104,27 +73,31 @@ const Products = () => {
       dataIndex: "sellerName",
       key: "sellerName",
       render: (_, record) => (
-        <span className="text-[#757575]">{record?.title}</span>
+        <span className="text-[#757575]">
+          {record?.sellerId?.firstName} {record?.sellerId?.lastName}
+        </span>
       ),
     },
     {
       title: "Category",
       dataIndex: "category",
       key: "category",
-      render: (category) => (
-        <span style={{ color: "#757575" }}>{category?.title}</span>
+      render: (_, record) => (
+        <span style={{ color: "#757575" }}>{record?.category}</span>
       ),
     },
     {
       title: "Price",
       dataIndex: "price",
       key: "price",
-      render: (text) => <span style={{ color: "#757575" }}>{text}</span>,
+      render: (_, record) => (
+        <span style={{ color: "#757575" }}>$ {record?.sizeType[0]?.price}</span>
+      ),
     },
     {
       title: "Stock",
-      dataIndex: "quantity",
-      key: "quantity",
+      dataIndex: "totalStock",
+      key: "totalStock",
       render: (text) => <span style={{ color: "#757575" }}>{text}</span>,
     },
     {
@@ -157,48 +130,48 @@ const Products = () => {
         );
       },
     },
-    {
-      title: "Action",
-      dataIndex: "action",
-      key: "action",
-      render: (_, record) => (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
+    // {
+    //   title: "Action",
+    //   dataIndex: "action",
+    //   key: "action",
+    //   render: (_, record) => (
+    //     <div
+    //       style={{
+    //         display: "flex",
+    //         alignItems: "center",
+    //         gap: "10px",
 
-            paddingRight: 10,
-          }}
-        >
-          <button
-            className="flex justify-center items-center rounded-md"
-            onClick={() => {
-              setValue(record);
-              setOpenEditModel(true);
-            }}
-            style={{
-              cursor: "pointer",
-              border: "none",
-              outline: "none",
-              width: "40px",
-              height: "32px",
-            }}
-          >
-            <FiEdit size={16} className="text-secondary" />
-          </button>
-          <button
-            onClick={() => {
-              setShowDelete(true);
-              setDeleteId(record?._id);
-            }}
-            className="w-10 h-8 flex justify-center items-center rounded-md"
-          >
-            <RiDeleteBin6Line size={20} className="text-secondary" />
-          </button>
-        </div>
-      ),
-    },
+    //         paddingRight: 10,
+    //       }}
+    //     >
+    //       <button
+    //         className="flex justify-center items-center rounded-md"
+    //         onClick={() => {
+    //           setValue(record);
+    //           setOpenEditModel(true);
+    //         }}
+    //         style={{
+    //           cursor: "pointer",
+    //           border: "none",
+    //           outline: "none",
+    //           width: "40px",
+    //           height: "32px",
+    //         }}
+    //       >
+    //         <FiEdit size={16} className="text-secondary" />
+    //       </button>
+    //       <button
+    //         onClick={() => {
+    //           setShowDelete(true);
+    //           setDeleteId(record?._id);
+    //         }}
+    //         className="w-10 h-8 flex justify-center items-center rounded-md"
+    //       >
+    //         <RiDeleteBin6Line size={20} className="text-secondary" />
+    //       </button>
+    //     </div>
+    //   ),
+    // },
   ];
 
   return (
@@ -260,27 +233,6 @@ const Products = () => {
                 </ConfigProvider>
               </div>
             </div>
-            {/* <Button
-              onClick={() => {
-                setOpenAddModel(true);
-              }}
-              style={{
-                width: "177px",
-                height: "40px",
-                boxShadow: "0px 2px 4px 0px #0000001A",
-                backgroundColor: "#09B782",
-                border: "none",
-                transition: "none",
-                color: "#fff",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "8px",
-              }}
-            >
-              <PlusOutlined />
-              <span style={{ margin: 0 }}>Add Product</span>
-            </Button> */}
           </div>
         </div>
 
@@ -291,7 +243,7 @@ const Products = () => {
                 Pagination: {
                   itemActiveBg: "#FFC107",
                   borderRadius: "100%",
-                  colorText: "white",
+                  colorText: "black",
                   colorTextDisabled: "#6C6C6C",
                 },
                 Table: {
@@ -310,50 +262,15 @@ const Products = () => {
               dataSource={productData?.data}
               loading={isLoading}
               pagination={{
-                total: productData?.pagination?.total,
+                total: productData?.meta?.total,
                 current: page,
-                pageSize: productData?.pagination?.limit,
+                pageSize: productData?.meta?.limit,
                 onChange: (page) => setPage(page),
               }}
             />
           </ConfigProvider>
         </div>
       </div>
-      <AddProductsModal
-        openAddModel={openAddModal}
-        setOpenAddModel={setOpenAddModel}
-        refetch={refetch}
-      />
-
-      <EditProductsModal
-        openEditModel={openEditModel}
-        setOpenEditModel={setOpenEditModel}
-        product={value}
-        refetch={refetch}
-      />
-
-      <Modal
-        centered
-        open={showDelete}
-        onCancel={() => setShowDelete(!showDelete)}
-        width={400}
-        footer={false}
-      >
-        <div className="p-6 text-center">
-          <p className="text-[#D93D04] text-center font-semibold">
-            Are you sure!
-          </p>
-          <p className="pt-4 pb-12 text-center">
-            Do you want to delete this product?
-          </p>
-          <button
-            onClick={() => handleDelete(deleteId)}
-            className="bg-[#09B782] py-2 px-5 text-white rounded-md"
-          >
-            Confirm
-          </button>
-        </div>
-      </Modal>
     </div>
   );
 };

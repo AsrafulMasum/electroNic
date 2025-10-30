@@ -2,15 +2,15 @@ import { baseApi } from "../api/baseApi";
 
 const bookingsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getBookings: builder.query({
-      query: () => {
+    getOrdersList: builder.query({
+      query: ({ limit, page, searchTerm }) => {
         return {
           method: "GET",
-          url: "/admin/get-bookings",
+          url: `/orders/admin-orders-transaction?limit=${limit}&page=${page}&searchTerm=${searchTerm}`,
         };
       },
     }),
   }),
 });
 
-export const { useGetBookingsQuery } = bookingsApi;
+export const { useGetOrdersListQuery } = bookingsApi;
