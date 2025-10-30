@@ -10,71 +10,9 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { useGetRatingsQuery } from "../../../redux/features/dashboardApi";
 
 const { Option } = Select;
-
-const data = [
-  {
-    name: "5",
-    uv: 590,
-    pv: 800,
-    amt: 1400,
-  },
-  {
-    name: "4.5",
-    uv: 868,
-    pv: 967,
-    amt: 1506,
-  },
-  {
-    name: "4",
-    uv: 1397,
-    pv: 1098,
-    amt: 989,
-  },
-  {
-    name: "3.5",
-    uv: 1480,
-    pv: 1200,
-    amt: 1228,
-  },
-  {
-    name: "3",
-    uv: 1520,
-    pv: 1108,
-    amt: 1100,
-  },
-  {
-    name: "2.5",
-    uv: 1400,
-    pv: 680,
-    amt: 1700,
-  },
-  {
-    name: "2",
-    uv: 1397,
-    pv: 1098,
-    amt: 989,
-  },
-  {
-    name: "1.5",
-    uv: 1480,
-    pv: 1200,
-    amt: 1228,
-  },
-  {
-    name: "1",
-    uv: 1520,
-    pv: 1108,
-    amt: 1100,
-  },
-  {
-    name: "N/A",
-    uv: 1400,
-    pv: 680,
-    amt: 1700,
-  },
-];
 
 const months = [
   "January",
@@ -92,10 +30,11 @@ const months = [
 ];
 
 const CustomerRatingsChart = () => {
-  const [selectedMonth, setSelectedMonth] = useState("September");
+  const [selectedMonth, setSelectedMonth] = useState("October");
+  const { data } = useGetRatingsQuery({ month: selectedMonth });
+  const ratings = data?.data?.ratingBreakdown;
 
   const onChange = (month) => {
-    console.log("Selected Month:", month);
     setSelectedMonth(month);
   };
 
@@ -155,13 +94,13 @@ const CustomerRatingsChart = () => {
           layout="vertical"
           width={500}
           height={290}
-          data={data}
+          data={ratings}
         >
           <CartesianGrid stroke="#f5f5f5" />
           <XAxis type="number" />
-          <YAxis dataKey="name" type="category" scale="band" />
+          <YAxis dataKey="rating" type="category" scale="band" />
           <Tooltip />
-          <Bar dataKey="pv" name="Ratings" barSize={15} fill="#FFC603" />
+          <Bar dataKey="count" name="Ratings" barSize={15} fill="#FFC603" />
         </ComposedChart>
       </ResponsiveContainer>
     </div>

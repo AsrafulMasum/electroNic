@@ -1,30 +1,34 @@
 import { ConfigProvider, Select, Table } from "antd";
 import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
+import { useGetTopSellersQuery } from "../../../redux/features/dashboardApi";
+import { imageUrl } from "../../../redux/api/baseApi";
 
 const { Option } = Select;
 
 export default function TopSellers() {
-  const [selectedMonth, setSelectedMonth] = useState("September");
-
-  // Data now includes totalOrders and amount
-  const data = [
-    { id: 1, name: "Theresa Webb", userId: "2341651561", totalOrders: 50, amount: "$200" },
-    { id: 2, name: "Theresa Webb", userId: "5614564154", totalOrders: 40, amount: "$300" },
-    { id: 3, name: "Theresa Webb", userId: "5724525544", totalOrders: 35, amount: "$250" },
-    { id: 4, name: "Theresa Webb", userId: "1256988452", totalOrders: 60, amount: "$400" },
-    { id: 5, name: "Theresa Webb", userId: "1236598632", totalOrders: 20, amount: "$150" },
-    { id: 6, name: "Theresa Webb", userId: "5724525544", totalOrders: 55, amount: "$280" },
-    { id: 7, name: "Theresa Webb", userId: "5724525544", totalOrders: 65, amount: "$320" },
-    { id: 8, name: "Theresa Webb", userId: "5724525544", totalOrders: 30, amount: "$180" },
-  ];
+  const [selectedMonth, setSelectedMonth] = useState("October");
+  const { data: topSellersRes } = useGetTopSellersQuery({
+    month: selectedMonth,
+  });
+  const topSellers = topSellersRes?.data?.sellers;
 
   const months = [
-    "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December",
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
   const onChange = (month) => {
-    console.log("Selected Month:", month);
     setSelectedMonth(month);
   };
 
@@ -34,21 +38,31 @@ export default function TopSellers() {
       title: "Seller Name",
       dataIndex: "name",
       key: "name",
-      render: (text, record) => (
+      render: (_, record) => (
         <div className="flex items-center gap-2">
-          {record.name && (
-            <div className="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-xs">
-              {record.name.charAt(0)}
-            </div>
+          {record?.sellerImage ? (
+            <img
+              src={`${imageUrl}${record?.sellerImage}`}
+              alt=""
+              className="w-8 h-8 object-cover rounded-full"
+            />
+          ) : (
+            <img
+              src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+              alt=""
+              className="w-8 h-8 object-cover rounded-full"
+            />
           )}
-          {text}
+          <p className="capitalize pl-2">
+            {record?.sellerName} {record?.sellerLastName}
+          </p>
         </div>
       ),
     },
     {
       title: "Seller ID",
-      dataIndex: "userId",
-      key: "userId",
+      dataIndex: "sellerId",
+      key: "sellerId",
     },
     {
       title: "Total Orders",
@@ -57,8 +71,9 @@ export default function TopSellers() {
     },
     {
       title: "Amount",
-      dataIndex: "amount",
-      key: "amount",
+      dataIndex: "totalRevenue",
+      key: "totalRevenue",
+      render: (text) => <span className="text-[#757575]">${text}</span>,
     },
   ];
 
@@ -110,8 +125,8 @@ export default function TopSellers() {
       <div className="overflow-y-auto h-60 pr-10">
         <Table
           columns={columns}
-          dataSource={data}
-          rowKey="id"
+          dataSource={topSellers}
+          rowKey="sellerId"
           pagination={false}
         />
       </div>

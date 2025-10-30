@@ -11,22 +11,19 @@ import TopSellers from "./TopSellers";
 import SellersLineChart from "./SellersLineChart";
 import CustomersBarChart from "./CustomersBarChart";
 import CustomerRatingsChart from "./CustomerRatingsChart";
+import { useGetAnalyticsQuery } from "../../../redux/features/dashboardApi";
 
 function DashboardHome() {
-  const [userYear, setUserYear] = useState("");
-  const [sellerYear, setSellerYear] = useState("");
-  const [studentYear, setStudentYear] = useState("");
-
-  const { data } = useStatisticsQuery({ userYear, sellerYear, studentYear });
-  const overView = data?.data?.overView;
+  const { data } = useGetAnalyticsQuery({});
+  const overView = data?.data;
 
   const statistics = [
     {
       title: "Total Users",
       amount: [
         {
-          customers: overView?.totalUsers,
-          sellers: overView?.totalUsers,
+          customers: overView?.totalCustomers,
+          sellers: overView?.totalSellers,
         },
       ],
       icon: <FiUsers className="text-2xl text-[#EEEEEE]" />,
@@ -35,8 +32,8 @@ function DashboardHome() {
       title: "Total Products",
       amount: [
         {
-          products: overView?.totalSold?.toLocaleString(),
-          quantity: overView?.totalSold?.toLocaleString(),
+          products: overView?.totalProducts?.toLocaleString(),
+          quantity: overView?.totalStock?.toLocaleString(),
         },
       ],
       icon: (
@@ -47,8 +44,8 @@ function DashboardHome() {
       title: "Total Orders",
       amount: [
         {
-          complete: overView?.totalOrder,
-          pending: overView?.totalOrder,
+          complete: overView?.deliveredOrders,
+          pending: overView?.pendingOrders,
         },
       ],
       icon: <LuBox className="text-2xl text-[#EEEEEE]" />,
@@ -57,8 +54,8 @@ function DashboardHome() {
       title: "Total Earnings",
       amount: [
         {
-          sell: `$${overView?.totalEarning?.toLocaleString()}`,
-          profit: `$${overView?.totalEarning?.toLocaleString()}`,
+          sell: `$${overView?.totalRevenue?.toLocaleString()}`,
+          profit: `$${overView?.totalProfit?.toLocaleString()}`,
         },
       ],
       icon: <GrMoney className="text-2xl text-[#EEEEEE]" />,
@@ -105,44 +102,24 @@ function DashboardHome() {
       </div>
 
       <div className="bg-[#FFFFFF] rounded-lg p-4">
-        <EarningAreaChart
-          setUserYear={setUserYear}
-          userStats={data?.data?.userListByMonthsData}
-        />
+        <EarningAreaChart />
       </div>
       <div className="grid grid-cols-2 gap-x-2 mt-2">
-        <OrdersBarChart
-          setStudentYear={setStudentYear}
-          studentStats={data?.data?.studentListByMonthsData}
-        />
+        <OrdersBarChart />
         <TopSellingProducts />
       </div>
       <div className="grid grid-cols-3 gap-x-2 mt-2">
         <div className="col-span-2">
           <CustomersBarChart
-            setStudentYear={setStudentYear}
-            studentStats={data?.data?.studentListByMonthsData}
           />
         </div>
         <CustomerRatingsChart />
       </div>
       <div className="grid grid-cols-2 gap-x-2 mt-2">
         <SellersLineChart
-          setSellerYear={setSellerYear}
-          sellingStats={data?.data?.orderListByMonthsData}
         />
         <TopSellers />
       </div>
-      {/* <div className="grid grid-cols-2 gap-x-2 mt-2">
-        <UsersLineChart
-          setSellerYear={setSellerYear}
-          sellingStats={data?.data?.orderListByMonthsData}
-        />
-        <OrdersBarChart
-          setStudentYear={setStudentYear}
-          studentStats={data?.data?.studentListByMonthsData}
-        />
-      </div> */}
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { ConfigProvider, DatePicker } from "antd";
+import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import {
   XAxis,
@@ -9,6 +10,7 @@ import {
   AreaChart,
   Area,
 } from "recharts";
+import { useGetEarningsQuery } from "../../../redux/features/dashboardApi";
 
 const CustomLegend = () => {
   return (
@@ -21,11 +23,18 @@ const CustomLegend = () => {
         <div className="w-3 h-3 bg-green rounded-full" />
         Profit
       </div>
+      <div className="flex items-center gap-1 whitespace-nowrap">
+        <div className="w-3 h-3 bg-[#1877F2] rounded-full" />
+        Admin Profit
+      </div>
     </div>
   );
 };
 
-const EarningAreaChart = ({setUserYear, userStats}) => {
+const EarningAreaChart = () => {
+  const [userYear, setUserYear] = useState("");
+  const { data } = useGetEarningsQuery({ year: userYear });
+  const earningData = data?.data;
 
   return (
     <div
@@ -43,7 +52,9 @@ const EarningAreaChart = ({setUserYear, userStats}) => {
           marginBottom: "25px",
         }}
       >
-        <h3 className="text-xl font-medium text-[#757575]">Earning Statistics</h3>
+        <h3 className="text-xl font-medium text-[#757575]">
+          Earning Statistics
+        </h3>
         <div className="flex items-center gap-6">
           <CustomLegend />
           <ConfigProvider
@@ -66,15 +77,19 @@ const EarningAreaChart = ({setUserYear, userStats}) => {
       </div>
 
       <ResponsiveContainer width={"100%"} height={285}>
-        <AreaChart data={userStats} barGap={100}>
+        <AreaChart data={earningData} barGap={100}>
           <defs>
-            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id="colorSell" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#FFC107" stopOpacity={1} />
               <stop offset="100%" stopColor="#FFC107" stopOpacity={0} />
             </linearGradient>
-            <linearGradient id="colorSubscribed" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id="colorProfit" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="#09b782" stopOpacity={1} />
               <stop offset="100%" stopColor="#09b782" stopOpacity={0} />
+            </linearGradient>
+            <linearGradient id="colorAdminProfit" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#1877F2" stopOpacity={1} />
+              <stop offset="100%" stopColor="#1877F2" stopOpacity={0} />
             </linearGradient>
           </defs>
           <CartesianGrid horizontal vertical={false} />
@@ -97,18 +112,26 @@ const EarningAreaChart = ({setUserYear, userStats}) => {
           <Area
             connectNulls
             type="monotone"
-            dataKey="count"
+            dataKey="totalRevenue"
             stroke="#FFC107"
-            fill="url(#colorUv)"
+            fill="url(#colorSell)"
             name="Sell"
           />
           <Area
             connectNulls
             type="monotone"
-            dataKey="subscriber"
+            dataKey="totalProfit"
             stroke="#09b782"
-            fill="url(#colorSubscribed)"
+            fill="url(#colorProfit)"
             name="Profit"
+          />
+          <Area
+            connectNulls
+            type="monotone"
+            dataKey="adminRevenue"
+            stroke="#1877F2"
+            fill="url(#colorAdminProfit)"
+            name="Admin Profit"
           />
         </AreaChart>
       </ResponsiveContainer>

@@ -11,6 +11,7 @@ import {
   YAxis,
 } from "recharts";
 import { FaChevronDown } from "react-icons/fa";
+import { useGetSellersStatisticQuery } from "../../../redux/features/dashboardApi";
 
 const { Option } = Select;
 
@@ -36,23 +37,21 @@ const CustomLegend = () => {
         <div className="w-3 h-3 bg-[#FFC107] rounded-full " />
         Sellers
       </div>
-      {/* <div className="flex items-center gap-1 whitespace-nowrap">
-        <div className="w-3 h-3 bg-[#09B782] rounded-full " />
-        Customers
-      </div>
-      <div className="flex items-center gap-1 whitespace-nowrap">
-        <div className="w-3 h-3 bg-[#1E90FF] rounded-full " />
-        Returning Customers
-      </div> */}
     </div>
   );
 };
 
-const SellersLineChart = ({ setSellerYear, sellingStats }) => {
+const SellersLineChart = () => {
+  const [sellerYear, setSellerYear] = useState("");
+  const { data } = useGetSellersStatisticQuery({ year: sellerYear });
+  const sellersStats = data?.data?.monthlyReport;
+
   return (
     <div className="bg-[#FFFFFF] py-6 rounded-xl w-full">
       <div className="flex items-center justify-between px-4 mb-4">
-        <h1 className="text-xl font-medium text-[#757575]">Sellers Statistics</h1>
+        <h1 className="text-xl font-medium text-[#757575]">
+          Sellers Statistics
+        </h1>
         <div className="flex items-center gap-6">
           <CustomLegend />
           <ConfigProvider
@@ -76,34 +75,23 @@ const SellersLineChart = ({ setSellerYear, sellingStats }) => {
 
       <ResponsiveContainer width="100%" height={250}>
         <LineChart
-          data={sellingStats}
+          data={sellersStats}
           margin={{ top: 5, right: 30, left: 10, bottom: 0 }}
         >
           <CartesianGrid horizontal={false} />
-          <XAxis dataKey="month" />
+          <XAxis
+            dataKey="month"
+            tickFormatter={(month) => month.substring(0, 3)}
+          />
           <YAxis />
           <Tooltip />
           <Line
             type="monotone"
-            dataKey="enrollment"
+            dataKey="totalNew"
             name="Sellers"
             stroke="#FFC107"
             activeDot={{ r: 8 }}
           />
-          {/* <Line
-            type="monotone"
-            dataKey="count"
-            name="Customers"
-            stroke="#09B782"
-            activeDot={{ r: 8 }}
-          />
-          <Line
-            type="monotone"
-            dataKey="enrollment"
-            name="Returning Customers"
-            stroke="#1E90FF"
-            activeDot={{ r: 8 }}
-          /> */}
         </LineChart>
       </ResponsiveContainer>
     </div>

@@ -1,76 +1,15 @@
 import { ConfigProvider, Select, Table } from "antd";
 import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
+import { useGetTopSellingProductsQuery } from "../../../redux/features/dashboardApi";
+import { imageUrl } from "../../../redux/api/baseApi";
 
 export default function TopSellingProducts() {
-  const [selectedMonth, setSelectedMonth] = useState("September");
-
-  const data = [
-    {
-      id: 1,
-      name: "Theresa Webb",
-      userId: "2341651561",
-      brand: "Brand A",
-      category: "Electronics",
-      amount: "$200",
-    },
-    {
-      id: 2,
-      name: "Theresa Webb",
-      userId: "5614564154",
-      brand: "Brand B",
-      category: "Clothing",
-      amount: "$120",
-    },
-    {
-      id: 3,
-      name: "Theresa Webb",
-      userId: "5724525544",
-      brand: "Brand C",
-      category: "Toys",
-      amount: "$80",
-    },
-    {
-      id: 4,
-      name: "Theresa Webb",
-      userId: "1256988452",
-      brand: "Brand D",
-      category: "Furniture",
-      amount: "$300",
-    },
-    {
-      id: 5,
-      name: "Theresa Webb",
-      userId: "1236598632",
-      brand: "Brand E",
-      category: "Groceries",
-      amount: "$50",
-    },
-    {
-      id: 6,
-      name: "Theresa Webb",
-      userId: "5724525544",
-      brand: "Brand F",
-      category: "Electronics",
-      amount: "$220",
-    },
-    {
-      id: 7,
-      name: "Theresa Webb",
-      userId: "5724525544",
-      brand: "Brand G",
-      category: "Clothing",
-      amount: "$180",
-    },
-    {
-      id: 8,
-      name: "Theresa Webb",
-      userId: "5724525544",
-      brand: "Brand H",
-      category: "Toys",
-      amount: "$90",
-    },
-  ];
+  const [selectedMonth, setSelectedMonth] = useState("October");
+  const { data: topSellingProductsRes } = useGetTopSellingProductsQuery({
+    month: selectedMonth,
+  });
+  const topSellingProducts = topSellingProductsRes?.data?.products;
 
   const months = [
     "January",
@@ -88,7 +27,6 @@ export default function TopSellingProducts() {
   ];
 
   const onChange = (month) => {
-    console.log("Selected Month:", month);
     setSelectedMonth(month);
   };
 
@@ -96,15 +34,15 @@ export default function TopSellingProducts() {
   const columns = [
     {
       title: "Product Name",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "productName",
+      key: "productName",
       render: (text, record) => (
         <div className="flex items-center gap-2">
-          {record.name && (
-            <div className="w-6 h-6 rounded-full bg-black text-white flex items-center justify-center text-xs">
-              {record.name.charAt(0)}
-            </div>
-          )}
+          <img
+            className="w-10 h-10 rounded-full"
+            src={`${imageUrl}${record?.productDetails?.images[0]}`}
+            alt=""
+          />
           {text}
         </div>
       ),
@@ -113,21 +51,23 @@ export default function TopSellingProducts() {
       title: "Brand",
       dataIndex: "brand",
       key: "brand",
+      render: (_, record) => <p>{record?.productDetails?.brand}</p>,
     },
     {
       title: "Category",
       dataIndex: "category",
       key: "category",
+      render: (_, record) => <p>{record?.productDetails?.category}</p>,
     },
     {
       title: "Total Sold",
-      dataIndex: "userId",
-      key: "userId",
+      dataIndex: "totalRevenue",
+      key: "totalRevenue",
     },
     {
       title: "Amount",
-      dataIndex: "amount",
-      key: "amount",
+      dataIndex: "totalQuantitySold",
+      key: "totalQuantitySold",
     },
   ];
 
@@ -181,8 +121,8 @@ export default function TopSellingProducts() {
       <div className="overflow-y-auto h-60 pr-10">
         <Table
           columns={columns}
-          dataSource={data}
-          rowKey="id"
+          dataSource={topSellingProducts}
+          rowKey="productId"
           pagination={false}
         />
       </div>

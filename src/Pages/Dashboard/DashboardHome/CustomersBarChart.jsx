@@ -12,8 +12,13 @@ import {
   YAxis,
 } from "recharts";
 import { FaChevronDown } from "react-icons/fa";
+import { useGetCustomersStatisticQuery } from "../../../redux/features/dashboardApi";
 
-const CustomersBarChart = ({ setStudentYear, studentStats }) => {
+const CustomersBarChart = () => {
+  const [year, setYear] = useState("");
+  const { data } = useGetCustomersStatisticQuery({ year: year });
+  const customerData = data?.data;
+
   const CustomLegend = () => {
     return (
       <div className="flex gap-2 2xl:gap-4 text-sm text-[#757575]">
@@ -32,7 +37,9 @@ const CustomersBarChart = ({ setStudentYear, studentStats }) => {
   return (
     <div className="py-6 rounded-xl w-full bg-[#FFFFFF]">
       <div className="flex items-center justify-between px-4 mb-4">
-        <h1 className="text-xl font-medium text-[#757575]">Customers Statistics</h1>
+        <h1 className="text-xl font-medium text-[#757575]">
+          Customers Statistics
+        </h1>
         <div className="flex items-center gap-2 2xl:gap-6">
           <CustomLegend />
           <ConfigProvider
@@ -47,7 +54,7 @@ const CustomersBarChart = ({ setStudentYear, studentStats }) => {
               picker="year"
               suffixIcon={<FaChevronDown className="text-gray-500 text-sm" />}
               onChange={(_, dateString) => {
-                setStudentYear(dateString);
+                setYear(dateString);
               }}
             />
           </ConfigProvider>
@@ -55,7 +62,7 @@ const CustomersBarChart = ({ setStudentYear, studentStats }) => {
       </div>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart
-          data={studentStats}
+          data={customerData?.monthlyBreakdown}
           margin={{
             top: 5,
             right: 30,
@@ -64,20 +71,23 @@ const CustomersBarChart = ({ setStudentYear, studentStats }) => {
           }}
         >
           <CartesianGrid vertical={false} />
-          <XAxis dataKey="month" />
+          <XAxis
+            dataKey="month"
+            tickFormatter={(month) => month.substring(0, 3)}
+          />
           <YAxis />
           <Tooltip />
           <Bar
             barSize={15}
             radius={[50, 50, 0, 0]}
-            dataKey="count"
+            dataKey="totalCustomers"
             name="Customers"
             fill="#09B782"
           />
           <Bar
             barSize={15}
             radius={[50, 50, 0, 0]}
-            dataKey="count"
+            dataKey="returningCustomers"
             name="Returning Customers"
             fill="#FFC107"
           />

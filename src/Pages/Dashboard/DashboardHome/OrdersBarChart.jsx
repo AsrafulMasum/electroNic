@@ -12,8 +12,13 @@ import {
   YAxis,
 } from "recharts";
 import { FaChevronDown } from "react-icons/fa";
+import { useGetOrdersQuery } from "../../../redux/features/dashboardApi";
 
-const OrdersBarChart = ({ setStudentYear, studentStats }) => {
+const OrdersBarChart = () => {
+  const [year, setYear] = useState("");
+  const { data } = useGetOrdersQuery({ year: year });
+  const orderData = data?.data;
+
   const CustomLegend = () => {
     return (
       <div className="flex gap-2 text-sm text-[#757575]">
@@ -40,9 +45,7 @@ const OrdersBarChart = ({ setStudentYear, studentStats }) => {
   return (
     <div className=" py-6 rounded-xl w-full  bg-[#FFFFFF]">
       <div className="flex items-center justify-between px-4 mb-4">
-        <h1 className="text-xl font-medium text-[#757575]">
-          Order Statistics
-        </h1>
+        <h1 className="text-xl font-medium text-[#757575]">Order Statistics</h1>
         <div className="flex items-center gap-2 2xl:gap-4">
           <CustomLegend />
           <ConfigProvider
@@ -57,7 +60,7 @@ const OrdersBarChart = ({ setStudentYear, studentStats }) => {
               picker="year"
               suffixIcon={<FaChevronDown className="text-gray-500 text-sm" />}
               onChange={(_, dateString) => {
-                setStudentYear(dateString);
+                setYear(dateString);
               }}
             />
           </ConfigProvider>
@@ -65,7 +68,7 @@ const OrdersBarChart = ({ setStudentYear, studentStats }) => {
       </div>
       <ResponsiveContainer width="100%" height={250}>
         <BarChart
-          data={studentStats}
+          data={orderData}
           margin={{
             top: 5,
             right: 30,
@@ -74,37 +77,40 @@ const OrdersBarChart = ({ setStudentYear, studentStats }) => {
           }}
         >
           <CartesianGrid vertical={false} />
-          <XAxis dataKey="month" />
+          <XAxis
+            dataKey="month"
+            tickFormatter={(month) => month.substring(0, 3)}
+          />
           <YAxis />
           <Tooltip />
-          {/* <Bar barSize={10} radius={50} dataKey="saleTotal" fill="#EAF2F3" /> */}
-          {/* <Bar barSize={40} radius={[50, 50, 0, 0]} dataKey="count" name="Students" fill="#FFC107" /> */}
+          {/* <Bar barSize={10} radius={50} dataKey="saleTotal" fill="#EAF2F3" />
+          <Bar barSize={40} radius={[50, 50, 0, 0]} dataKey="count" name="Students" fill="#FFC107" /> */}
           <Bar
-            barSize={40}
-            dataKey="count"
+            barSize={20}
+            dataKey="total"
             stackId="a"
             name="Sold"
             fill="#09B782"
           />
           <Bar
-            barSize={40}
-            dataKey="count"
+            barSize={20}
+            dataKey="pending"
             stackId="a"
             name="Pending"
             fill="#FFC107"
           />
           <Bar
-            barSize={40}
-            dataKey="count"
+            barSize={20}
+            dataKey="cancelled"
             stackId="a"
             name="Cancel"
             fill="#D32B20"
           />
           <Bar
-            barSize={40}
+            barSize={20}
             dataKey="count"
             stackId="a"
-            name="Return"
+            name="refunded"
             fill="#FF0000"
           />
         </BarChart>
