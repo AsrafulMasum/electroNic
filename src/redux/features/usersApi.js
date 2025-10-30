@@ -21,10 +21,11 @@ const usersApi = baseApi.injectEndpoints({
     }),
 
     lockUser: builder.mutation({
-      query: ({ id }) => {
+      query: ({ id, payload }) => {
         return {
-          url: `/user/${id}`,
+          url: `/user-managements/status/${id}`,
           method: "PATCH",
+          body: payload,
         };
       },
     }),

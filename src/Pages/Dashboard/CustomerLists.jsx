@@ -9,11 +9,12 @@ import {
 import { imageUrl } from "../../redux/api/baseApi";
 import toast from "react-hot-toast";
 import moment from "moment";
+import { el } from "date-fns/locale";
 
 const CustomerLists = () => {
   const [page, setPage] = useState(1);
   const [searchText, setSearchText] = useState("");
-  const [lock, setLock] = useState("");
+  const [lock, setLock] = useState(null);
   const {
     data: userData,
     refetch,
@@ -107,25 +108,10 @@ const CustomerLists = () => {
             paddingRight: 10,
           }}
         >
-          {/* <button
-            className="flex justify-center items-center rounded-md"
-            onClick={() => setValue(record)}
-            style={{
-              cursor: "pointer",
-              border: "none",
-              outline: "none",
-              backgroundColor: "#121212",
-              width: "40px",
-              height: "32px",
-            }}
-          >
-            <GoArrowUpRight size={26} className="text-secondary" />
-          </button> */}
-
           <div>
             <button
               className="flex justify-center items-center rounded-md"
-              onClick={() => setLock(record?._id)}
+              onClick={() => setLock(record)}
               style={{
                 cursor: "pointer",
                 border: "none",
@@ -147,11 +133,21 @@ const CustomerLists = () => {
   ];
 
   const handleDelete = async () => {
+    let payload = {};
+    if (lock?.status === "active") {
+      payload = {
+        status: "blocked",
+      };
+    } else {
+      payload = {
+        status: "active",
+      };
+    }
     try {
-      const res = await lockUser({ id: lock });
+      const res = await lockUser({ id: lock?._id, payload });
       if (res?.data?.success) {
         refetch();
-        setLock("");
+        setLock(null);
         toast.success(res?.data?.message);
       }
     } catch (error) {
